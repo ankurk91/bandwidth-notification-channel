@@ -37,7 +37,7 @@ class BandwidthClient
 
     /**
      * Create fresh client
-     * Note: Client is immutable so we need to replace existing client
+     * Note: Client is immutable so we need to replace existing client.
      *
      * @source http://docs.guzzlephp.org/en/stable
      */
@@ -51,24 +51,25 @@ class BandwidthClient
             'http_errors' => $this->breakOnErrors,
             'debug' => $this->config->shouldDebug(),
             'auth' => [
-                $this->config->getApiToken(), $this->config->getApiSecret()
-            ]
+                $this->config->getApiToken(), $this->config->getApiSecret(),
+            ],
         ]);
     }
 
     /**
-     * Guzzle will not throw exceptions on https errors
+     * Guzzle will not throw exceptions on https errors.
      *
      * @return $this
      */
     public function withoutHttpErrors()
     {
         $this->breakOnErrors = false;
+
         return $this;
     }
 
     /**
-     * Create and store client if does not exist yet
+     * Create and store client if does not exist yet.
      *
      * @return \GuzzleHttp\Client
      */
@@ -82,7 +83,7 @@ class BandwidthClient
     }
 
     /**
-     * Proxy method to guzzle request() method
+     * Proxy method to guzzle request() method.
      *
      * @param $method string
      * @param $url  string
@@ -99,7 +100,7 @@ class BandwidthClient
     }
 
     /**
-     * Prepare payload according to http verb
+     * Prepare payload according to http verb.
      *
      * @param $method string
      * @param $payload
@@ -121,7 +122,7 @@ class BandwidthClient
     }
 
     /**
-     * Extract query params from url
+     * Extract query params from url.
      *
      * @param $url string
      * @return array
@@ -130,11 +131,12 @@ class BandwidthClient
     {
         $query = [];
         parse_str(parse_url($url, PHP_URL_QUERY), $query);
+
         return $query;
     }
 
     /**
-     * Send SMS or MMS
+     * Send SMS or MMS.
      *
      * @source https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html
      * @param array $body
