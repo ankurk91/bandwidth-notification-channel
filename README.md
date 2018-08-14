@@ -68,7 +68,8 @@ class AccountApproved extends Notification
     {
         return (new BandwidthMessage())
             ->text("Hi {$notifiable->name}, Your account was approved!");
-            //->from('+123456789'); // optional
+            //->from('+123456789'); // optional, will use global config when not set
+            //->media('http://example.com/image-1.jpg'); // optional MMS
     }
 }
 ```

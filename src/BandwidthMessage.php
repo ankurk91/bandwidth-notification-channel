@@ -19,6 +19,12 @@ class BandwidthMessage
     public $from;
 
     /**
+     * A media url to the location of the media or list of medias to be sent send with the message.
+     * @var string
+     */
+    public $media = null;
+
+    /**
      * Create a new message instance.
      *
      * @param  string $text
@@ -51,6 +57,20 @@ class BandwidthMessage
     public function from($from)
     {
         $this->from = $from;
+
+        return $this;
+    }
+
+    /**
+     * Set the media url(s) for MMS messages.
+     *
+     * @source https://dev.bandwidth.com/faq/messaging/mediaType.html
+     * @param  string|array $media
+     * @return $this
+     */
+    public function media($media)
+    {
+        $this->media = $media;
 
         return $this;
     }

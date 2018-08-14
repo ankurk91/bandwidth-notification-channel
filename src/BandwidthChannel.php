@@ -63,6 +63,7 @@ class BandwidthChannel
             'from' => $message->from ?: $this->from,
             'to' => $to,
             'text' => trim($message->text),
+            'media' => $message->media,
         ]);
     }
 }
