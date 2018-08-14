@@ -32,30 +32,16 @@ class BandwidthClient
     protected $breakOnErrors = true;
 
     /**
-     * @var string
+     * @var BandwidthConfig
      */
-    protected $userId;
+    private $config;
 
     /**
-     * @var string
+     * @param BandwidthConfig $config
      */
-    protected $apiToken;
-
-    /**
-     * @var string
-     */
-    protected $apiSecret;
-
-    /**
-     * @param $userId string
-     * @param $apiToken string
-     * @param $apiSecret string
-     */
-    public function __construct($userId, $apiToken, $apiSecret)
+    public function __construct(BandwidthConfig $config)
     {
-        $this->userId = $userId;
-        $this->apiToken = $apiToken;
-        $this->apiSecret = $apiSecret;
+        $this->config = $config;
     }
 
     /**
@@ -75,7 +61,7 @@ class BandwidthClient
             'http_errors' => $this->breakOnErrors, // throw exception on non 20x response codes
             'debug' => false,
             'auth' => [
-                $this->apiToken, $this->apiSecret
+                $this->config->getApiToken(), $this->config->getApiSecret()
             ]
         ]);
     }
@@ -109,7 +95,7 @@ class BandwidthClient
      * @param $method
      * @param $url
      * @param array $payload
-     * @return mixed|Response
+     * @return mixed
      */
     protected function sendRequest($method, $url, array $payload)
     {
@@ -160,10 +146,10 @@ class BandwidthClient
      *
      * @source https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html
      * @param array $body
-     * @return mixed|Response
+     * @return mixed
      */
     public function sendMessage(array $body = [])
     {
-        return $this->sendRequest('POST', "users/{$this->userId}/messages", $body);
+        return $this->sendRequest('POST', "users/{$this->config->getUserId()}/messages", $body);
     }
 }

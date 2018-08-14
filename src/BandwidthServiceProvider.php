@@ -19,13 +19,12 @@ class BandwidthServiceProvider extends ServiceProvider
                 throw InvalidConfiguration::configurationNotSet();
             }
 
+            $bandwidthConfig = new BandwidthConfig($config);
             return new BandwidthChannel(
                 new BandwidthClient(
-                    array_get($config, 'user_id'),
-                    array_get($config, 'api_token'),
-                    array_get($config, 'api_secret')
+                    $bandwidthConfig
                 ),
-                array_get($config, 'from')
+                $bandwidthConfig->getFrom()
             );
         });
     }

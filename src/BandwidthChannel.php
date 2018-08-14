@@ -41,7 +41,7 @@ class BandwidthChannel
      *
      * @param  mixed $notifiable
      * @param  \Illuminate\Notifications\Notification $notification
-     * @return void
+     * @return mixed
      */
     public function send($notifiable, Notification $notification)
     {
