@@ -17,15 +17,6 @@ class BandwidthClient
      */
     protected $client = null;
 
-    /**
-     * Default headers
-     * @var array
-     */
-    protected $headers = [
-        'Accept' => 'application/json',
-        'Content-Type' => 'application/json',
-    ];
-
     /*
      * @var boolean
      */
@@ -53,13 +44,12 @@ class BandwidthClient
     protected function createClient()
     {
         $this->client = new GuzzleClient([
-            'base_uri' => self::API_BASE_URL, // follows RFC 3986
-            'headers' => $this->headers,
-            'connect_timeout' => 10.0, // seconds,
-            'timeout' => 10.0, // seconds
-            'verify' => true, // SSL verification
-            'http_errors' => $this->breakOnErrors, // throw exception on non 20x response codes
-            'debug' => false,
+            'base_uri' => self::API_BASE_URL,
+            'connect_timeout' => 10.0,
+            'timeout' => 10.0,
+            'verify' => true,
+            'http_errors' => $this->breakOnErrors,
+            'debug' => $this->config->shouldDebug(),
             'auth' => [
                 $this->config->getApiToken(), $this->config->getApiSecret()
             ]
@@ -79,6 +69,8 @@ class BandwidthClient
 
     /**
      * Create and store client if does not exist yet
+     *
+     * @return \GuzzleHttp\Client
      */
     protected function getClient()
     {
@@ -92,8 +84,8 @@ class BandwidthClient
     /**
      * Proxy method to guzzle request() method
      *
-     * @param $method
-     * @param $url
+     * @param $method string
+     * @param $url  string
      * @param array $payload
      * @return mixed
      */
@@ -109,7 +101,7 @@ class BandwidthClient
     /**
      * Prepare payload according to http verb
      *
-     * @param $method
+     * @param $method string
      * @param $payload
      * @return array
      */
@@ -131,7 +123,7 @@ class BandwidthClient
     /**
      * Extract query params from url
      *
-     * @param $url
+     * @param $url string
      * @return array
      */
     protected function parseQueryParams($url)

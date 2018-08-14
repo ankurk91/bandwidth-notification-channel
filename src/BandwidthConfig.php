@@ -56,4 +56,15 @@ class BandwidthConfig
     {
         return array_get($this->config, 'from', null);
     }
+
+    /**
+     * Determine whether to debug Guzzle client or not.
+     * @source http://docs.guzzlephp.org/en/stable/request-options.html#debug
+     *
+     * @return bool
+     */
+    public function shouldDebug()
+    {
+        return data_get($this->config, 'debug_http', false);
+    }
 }
