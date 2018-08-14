@@ -39,7 +39,7 @@ class BandwidthChannel
      */
     public function send($notifiable, Notification $notification)
     {
-        if (!$to = $notifiable->routeNotificationFor('bandwidth', $notification)) {
+        if (! $to = $notifiable->routeNotificationFor('bandwidth', $notification)) {
             return;
         }
 

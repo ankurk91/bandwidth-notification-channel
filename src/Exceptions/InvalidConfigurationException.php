@@ -7,7 +7,6 @@ use Exception;
 class InvalidConfigurationException extends Exception
 {
     /**
-     *
      * @param  string $message
      * @return void
      */
