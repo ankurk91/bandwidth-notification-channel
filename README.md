@@ -1,10 +1,10 @@
 # Bandwidth notification channel for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Total Downloads](https://img.shields.io/packagist/dt/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
+[![Packagist](https://img.shields.io/packagist/v/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Downloads](https://img.shields.io/packagist/dt/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
 
-This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) sms notifications with Laravel 5.6.
+This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) sms notifications with Laravel v5.6.
 
 ## Installation
 You can install the package via composer:
@@ -32,21 +32,38 @@ Add the service provider to `config/app.php` `providers` array (optional)
     'from' => env('BANDWIDTH_FROM'), 
 ],
 ```
+* Note that `from` must be in E.164 format, like `+14244443192`
 
 ## Usage
-Now you can use the channel in your `via()` method inside the notification class
+Now you can use the Bandwidth channel in your `via()` method inside the notification class
 ```php
+<?php
+
+namespace App\Notifications;
+
+use Illuminate\Notifications\Notification;
 use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthMessage;
-use Illuminate\Notifications\Notification;
 
 class AccountApproved extends Notification
 {
+    /**
+     * Get the notification channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array|string
+     */
     public function via($notifiable)
     {
         return [BandwidthChannel::class];
     }
 
+    /**
+     * Get the text representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return BandwidthMessage
+     */
     public function toBandwidth($notifiable)
     {
         return (new BandwidthMessage())
@@ -56,13 +73,13 @@ class AccountApproved extends Notification
 }
 ```
 
-In order to let your Notification know which phone are you sending to, the channel will look for the `phone_number` attribute of the Notifiable model. 
+In order to let your Notification know which phone number are you sending to, the channel will look for the `phone_number` attribute of the Notifiable model. 
 If you want to override this behaviour, add the `routeNotificationForBandwidth` method to your Notifiable model.
 ```php
 // app/User.php
 public function routeNotificationForBandwidth()
 {
-    return $this->profile->primary_phone;
+    return $this->primary_phone;
 }
 ```
 
@@ -72,4 +89,4 @@ composer test
 ```
 
 ## License
-The MIT License (MIT).
+The MIT License.

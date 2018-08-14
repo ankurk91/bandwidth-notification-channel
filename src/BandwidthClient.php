@@ -10,7 +10,7 @@ class BandwidthClient
      * @source https://dev.bandwidth.com/ap-docs/
      * @var string
      */
-    protected $apiBaseUrl = 'https://api.catapult.inetwork.com/v1/';
+    const API_BASE_URL = 'https://api.catapult.inetwork.com/v1/';
 
     /**
      * @var \GuzzleHttp\Client
@@ -67,7 +67,7 @@ class BandwidthClient
     protected function createClient()
     {
         $this->client = new GuzzleClient([
-            'base_uri' => $this->apiBaseUrl, // follows RFC 3986
+            'base_uri' => self::API_BASE_URL, // follows RFC 3986
             'headers' => $this->headers,
             'connect_timeout' => 10.0, // seconds,
             'timeout' => 10.0, // seconds
