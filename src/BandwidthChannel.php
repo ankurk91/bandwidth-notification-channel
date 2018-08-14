@@ -19,12 +19,6 @@ class BandwidthChannel
     protected $from;
 
     /**
-     * Max length for SMS text
-     * @var integer
-     */
-    const MAX_LENGTH = 2048;
-
-    /**
      * Create a new bandwidth channel instance.
      *
      * @param BandwidthClient $client
@@ -53,10 +47,6 @@ class BandwidthChannel
 
         if (\is_string($message)) {
             $message = new BandwidthMessage($message);
-        }
-
-        if (\mb_strlen($message->text) > self::MAX_LENGTH) {
-            //todo throw exception
         }
 
         return $this->client->sendMessage([

@@ -3,7 +3,7 @@
 namespace NotificationChannels\Bandwidth;
 
 use Illuminate\Support\ServiceProvider;
-use NotificationChannels\Bandwidth\Exceptions\InvalidConfiguration;
+use NotificationChannels\Bandwidth\Exceptions\InvalidConfigurationException;
 
 class BandwidthServiceProvider extends ServiceProvider
 {
@@ -12,18 +12,23 @@ class BandwidthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(BandwidthChannel::class, function () {
-            $config = config('services.bandwidth');
+        $this->app->when(BandwidthConfig::class)
+            ->needs('$config')
+            ->give(function () {
+                $config = config('services.bandwidth');
 
-            if (is_null($config)) {
-                throw InvalidConfiguration::configurationNotSet();
-            }
+                if (is_null($config)) {
+                    throw new InvalidConfigurationException();
+                }
 
-            $bandwidthConfig = new BandwidthConfig($config);
+                return $config;
+            });
+
+        $this->app->bind(BandwidthChannel::class, function ($app) {
+            $bandwidthConfig = $app->make(BandwidthConfig::class);
+
             return new BandwidthChannel(
-                new BandwidthClient(
-                    $bandwidthConfig
-                ),
+                $app->make(BandwidthClient::class),
                 $bandwidthConfig->getFrom()
             );
         });
