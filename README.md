@@ -8,11 +8,11 @@
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) sms notifications with Laravel v5.6.
 
 ## Installation
-You can install the package via composer:
+* You can install the package via composer:
 ```
 composer require ankurk91/bandwidth-notification-channel
 ```
-Add the service provider to `config/app.php` `providers` array (optional)
+* Add the service provider to `config/app.php` `providers` array (optional)
 ```php
 // config/app.php
 'providers' => [
@@ -22,7 +22,7 @@ Add the service provider to `config/app.php` `providers` array (optional)
 ```
 
 ## Setting up your Bandwidth account
-* Add [Bandwidth](https://app.bandwidth.com/) SMS service credentials to `config/services.php`
+* Add [Bandwidth](https://dev.bandwidth.com/security.html) service credentials to `config/services.php`
 ```php
 // config/services.php
 
@@ -33,7 +33,8 @@ Add the service provider to `config/app.php` `providers` array (optional)
     'from' => env('BANDWIDTH_FROM'), 
 ],
 ```
-* Note that `from` must be in E.164 format, like `+14244443192`
+* The `from` option is the phone number that your SMS messages will be sent from. 
+* The `from` number must be in E.164 format, like `+14244443192`. [Read more](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html)
 
 ## Usage
 Now you can use the Bandwidth channel in your `via()` method inside the notification class
@@ -78,10 +79,27 @@ class AccountApproved extends Notification
 In order to let your Notification know which phone number are you sending to, the channel will look for the `phone_number` attribute of the Notifiable model. 
 If you want to override this behaviour, add the `routeNotificationForBandwidth` method to your Notifiable model.
 ```php
-// app/User.php
-public function routeNotificationForBandwidth()
+<?php
+
+namespace App;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
 {
-    return $this->primary_phone;
+    use Notifiable;
+    
+    /**
+     * Route notifications for the bandwidth channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string|boolean
+     */
+    public function routeNotificationForBandwidth($notification)
+    {
+        return $this->primary_phone;
+    }
 }
 ```
 

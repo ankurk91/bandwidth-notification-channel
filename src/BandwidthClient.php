@@ -47,7 +47,6 @@ class BandwidthClient
             'base_uri' => self::API_BASE_URL,
             'connect_timeout' => 10.0,
             'timeout' => 10.0,
-            'verify' => true,
             'http_errors' => $this->breakOnErrors,
             'debug' => $this->config->shouldDebug(),
             'auth' => [
