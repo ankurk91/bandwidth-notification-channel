@@ -17,8 +17,8 @@ class BandwidthClient
      */
     protected $client = null;
 
-    /*
-     * @var boolean
+    /**
+     * @var bool
      */
     protected $breakOnErrors = true;
 

@@ -65,6 +65,6 @@ class BandwidthConfig
      */
     public function shouldDebug()
     {
-        return data_get($this->config, 'debug_http', false);
+        return array_get($this->config, 'debug_http', false);
     }
 }

@@ -1,6 +1,7 @@
 # Bandwidth notification channel for Laravel
 
 [![Packagist](https://img.shields.io/packagist/v/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
+[![GitHub tag](https://img.shields.io/github/tag/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://github.com/ankurk91/bandwidth-notification-channel/releases)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Downloads](https://img.shields.io/packagist/dt/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
 [![StyleCI](https://styleci.io/repos/144573966/shield?branch=master)](https://styleci.io/repos/144573966)
@@ -16,7 +17,7 @@ composer require ankurk91/bandwidth-notification-channel
 ```php
 // config/app.php
 'providers' => [
-    ...
+    //...
     NotificationChannels\Bandwidth\BandwidthServiceProvider::class,
 ],
 ```
@@ -70,14 +71,13 @@ class AccountApproved extends Notification
     {
         return (new BandwidthMessage())
             ->text("Hi {$notifiable->name}, Your account was approved!");
-            //->from('+123456789'); // optional, will use global config when not set
-            //->media('http://example.com/image-1.jpg'); // optional MMS
+            //->from('+123456789'); // optional, will use global form when not set
+            //->media('http://example.com/image-1.jpg'); // optional media url for MMS
     }
 }
 ```
 
-In order to let your Notification know which phone number are you sending to, the channel will look for the `phone_number` attribute of the Notifiable model. 
-If you want to override this behaviour, add the `routeNotificationForBandwidth` method to your Notifiable model.
+In order to let your Notification know which phone number are you sending to you need to add the `routeNotificationForBandwidth` method to your Notifiable model.
 ```php
 <?php
 
