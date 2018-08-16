@@ -6,14 +6,14 @@
 [![Downloads](https://img.shields.io/packagist/dt/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
 [![StyleCI](https://styleci.io/repos/144573966/shield?branch=master)](https://styleci.io/repos/144573966)
 
-This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) sms notifications with Laravel v5.6.
+This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v5.6.
 
 ## Installation
-* You can install the package via composer:
+You can install the package via composer:
 ```
 composer require ankurk91/bandwidth-notification-channel
 ```
-* Add the service provider to `config/app.php` `providers` array (optional)
+Add the service provider in `config/app.php` file:  (optional)
 ```php
 // config/app.php
 'providers' => [
@@ -65,7 +65,7 @@ class AccountApproved extends Notification
      * Get the text representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return BandwidthMessage
+     * @return BandwidthMessage|string
      */
     public function toBandwidth($notifiable)
     {
@@ -77,7 +77,7 @@ class AccountApproved extends Notification
 }
 ```
 
-In order to let your Notification know which phone number are you sending to you need to add the `routeNotificationForBandwidth` method to your Notifiable model.
+Add the `routeNotificationForBandwidth` method to your Notifiable model.
 ```php
 <?php
 
@@ -98,7 +98,7 @@ class User extends Authenticatable
      */
     public function routeNotificationForBandwidth($notification)
     {
-        return $this->primary_phone;
+        return $this->phone_number;
     }
 }
 ```
