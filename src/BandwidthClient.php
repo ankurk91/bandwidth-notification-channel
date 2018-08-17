@@ -72,7 +72,7 @@ class BandwidthClient
      *
      * @return \GuzzleHttp\Client
      */
-    protected function getClient()
+    public function getClient()
     {
         if (is_null($this->client)) {
             $this->createClient();
@@ -89,7 +89,7 @@ class BandwidthClient
      * @param array $payload
      * @return mixed
      */
-    protected function sendRequest($method, $url, array $payload)
+    public function sendRequest($method, $url, array $payload)
     {
         return $this->getClient()->request($method, $url, array_merge_recursive(
                 ['query' => $this->parseQueryParams($url)],
