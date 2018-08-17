@@ -49,11 +49,11 @@ class BandwidthChannel
             $message = new BandwidthMessage($message);
         }
 
-        return $this->client->sendMessage([
+        return $this->client->sendMessage(array_merge([
             'from' => $message->from ?: $this->from,
             'to' => $to,
             'text' => trim($message->content),
             'media' => $message->media,
-        ]);
+        ], $message->http));
     }
 }

@@ -34,8 +34,7 @@ Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credential
     'from' => env('BANDWIDTH_FROM'), 
 ],
 ```
-* The `from` option is the phone number that your SMS messages will be sent from. 
-* The `from` number must be in E.164 format, for example `+14244443192`. [Read more](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html)
+The `from` option is the phone number that your SMS messages will be sent from. 
 
 ## Usage
 Now you can use the Bandwidth channel in your `via()` method inside the notification class:
@@ -71,8 +70,6 @@ class AccountApproved extends Notification
     {
         return (new BandwidthMessage())
             ->content("Hi {$notifiable->name}, Your account was approved!");
-            //->from('+123456789'); // optional, will use global form when not set
-            //->media('http://example.com/image-1.jpg'); // optional media url for MMS
     }
 }
 ```
@@ -103,17 +100,27 @@ class User extends Authenticatable
 }
 ```
 
+### Available **BandwidthMessage** methods
+* `content()`: (required) Accepts a string value for the notification body.
+* `from()`: Accepts a phone number to use as the notification sender.
+* `media()`: Accepts a url or array of urls to be used a MMS.
+* `http()`: Accepts an `array` to send along with notification body; for eg: `callbackUrl`.
+
+### Notes
+* The `from` and `to` numbers must be in `E.164` format, for example `+14244443192`. 
+* Message content length must be `2048` characters or less. Messages larger than `160` characters are automatically fragmented and re-assembled to fit within the `160` character transport constraints.
+
+## Changelog
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
 ## Testing
 ```
 composer test
 ```
 
 ## Resources
-* Bandwidth [FAQ](https://dev.bandwidth.com/faq)
-* Bandwidth [Docs](https://dev.bandwidth.com/) for Developers
-
-## Changelog
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+* Bandwidth [FAQ](https://dev.bandwidth.com/faq) for Developers
+* Bandwidth [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) for Developers
 
 ## License
 The MIT License.

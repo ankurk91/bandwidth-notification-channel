@@ -20,9 +20,17 @@ class BandwidthMessage
 
     /**
      * A media url to the location of the media or list of medias to be sent send with the message.
+     *
      * @var string
      */
     public $media = null;
+
+    /**
+     * Additional request options for the Guzzle HTTP client.
+     *
+     * @var array
+     */
+    public $http = [];
 
     /**
      * Create a new message instance.
@@ -71,6 +79,19 @@ class BandwidthMessage
     public function media($media)
     {
         $this->media = $media;
+
+        return $this;
+    }
+
+    /**
+     * Set additional request options for the Guzzle HTTP client.
+     *
+     * @param  array  $options
+     * @return $this
+     */
+    public function http(array $options)
+    {
+        $this->http = $options;
 
         return $this;
     }
