@@ -6,14 +6,20 @@ use Illuminate\Contracts\Validation\Rule;
 
 class PhoneNumberRule implements Rule
 {
+
+    /**
+     * @var int
+     */
+    protected $minimum;
+
     /**
      * Create a new rule instance.
      *
-     * @return void
+     * @param int $minimum
      */
-    public function __construct()
+    public function __construct($minimum = 1)
     {
-        //
+        $this->minimum = (int)$minimum;
     }
 
     /**
@@ -26,7 +32,7 @@ class PhoneNumberRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^\+?[1-9]\d{1,14}$/', (string) $value);
+        return preg_match("/^\+?[1-9]\d{{$this->minimum},14}$/", (string) $value);
     }
 
     /**

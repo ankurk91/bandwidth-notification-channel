@@ -9,7 +9,7 @@ class BandwidthMessage
      *
      * @var string
      */
-    public $text;
+    public $content;
 
     /**
      * The phone number the message should be sent from.
@@ -27,23 +27,23 @@ class BandwidthMessage
     /**
      * Create a new message instance.
      *
-     * @param  string $text
+     * @param  string $content
      * @return void
      */
-    public function __construct($text = '')
+    public function __construct($content = '')
     {
-        $this->text = $text;
+        $this->content = $content;
     }
 
     /**
      * Set the message content.
      *
-     * @param  string $text
+     * @param  string $content
      * @return $this
      */
-    public function text($text)
+    public function content($content)
     {
-        $this->text = $text;
+        $this->content = $content;
 
         return $this;
     }

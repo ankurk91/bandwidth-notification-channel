@@ -23,7 +23,7 @@ Add the service provider in `config/app.php` file:  (optional)
 ```
 
 ## Setting up your Bandwidth account
-* Add [Bandwidth](https://dev.bandwidth.com/security.html) service credentials to `config/services.php`
+Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credentials to your `config/services.php`:
 ```php
 // config/services.php
 
@@ -35,10 +35,10 @@ Add the service provider in `config/app.php` file:  (optional)
 ],
 ```
 * The `from` option is the phone number that your SMS messages will be sent from. 
-* The `from` number must be in E.164 format, like `+14244443192`. [Read more](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html)
+* The `from` number must be in E.164 format, for example `+14244443192`. [Read more](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html)
 
 ## Usage
-Now you can use the Bandwidth channel in your `via()` method inside the notification class
+Now you can use the Bandwidth channel in your `via()` method inside the notification class:
 ```php
 <?php
 
@@ -70,14 +70,14 @@ class AccountApproved extends Notification
     public function toBandwidth($notifiable)
     {
         return (new BandwidthMessage())
-            ->text("Hi {$notifiable->name}, Your account was approved!");
+            ->content("Hi {$notifiable->name}, Your account was approved!");
             //->from('+123456789'); // optional, will use global form when not set
             //->media('http://example.com/image-1.jpg'); // optional media url for MMS
     }
 }
 ```
 
-Add the `routeNotificationForBandwidth` method to your Notifiable model.
+Add the `routeNotificationForBandwidth` method to your Notifiable model:
 ```php
 <?php
 
@@ -107,6 +107,13 @@ class User extends Authenticatable
 ```
 composer test
 ```
+
+## Resources
+* Bandwidth [FAQ](https://dev.bandwidth.com/faq)
+* Bandwidth [Docs](https://dev.bandwidth.com/) for Developers
+
+## Changelog
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 ## License
 The MIT License.

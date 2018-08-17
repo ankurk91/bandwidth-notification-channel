@@ -4,7 +4,7 @@ namespace NotificationChannels\Bandwidth\Exceptions;
 
 use Exception;
 
-class InvalidConfigurationException extends Exception
+class InvalidConfiguration extends Exception
 {
     /**
      * @param  string $message
