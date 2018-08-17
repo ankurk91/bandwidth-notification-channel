@@ -6,7 +6,6 @@ use Illuminate\Contracts\Validation\Rule;
 
 class PhoneNumberRule implements Rule
 {
-
     /**
      * @var int
      */
@@ -19,7 +18,7 @@ class PhoneNumberRule implements Rule
      */
     public function __construct($minimum = 1)
     {
-        $this->minimum = (int)$minimum;
+        $this->minimum = (int) $minimum;
     }
 
     /**
