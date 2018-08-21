@@ -1,11 +1,12 @@
 # Bandwidth notification channel for Laravel
 
-[![Packagist](https://img.shields.io/packagist/v/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
-[![GitHub tag](https://img.shields.io/github/tag/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://github.com/ankurk91/bandwidth-notification-channel/releases)
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Downloads](https://img.shields.io/packagist/dt/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
-[![StyleCI](https://styleci.io/repos/144573966/shield?branch=master)](https://styleci.io/repos/144573966)
-[![Build Status](https://travis-ci.com/ankurk91/bandwidth-notification-channel.svg?branch=master)](https://travis-ci.com/ankurk91/bandwidth-notification-channel)
+[![Packagist](https://img.shields.io/packagist/v/ankurk91/bandwidth-notification-channel.svg)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
+[![GitHub tag](https://img.shields.io/github/tag/ankurk91/bandwidth-notification-channel.svg)](https://github.com/ankurk91/bandwidth-notification-channel/releases)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
+[![Downloads](https://img.shields.io/packagist/dt/ankurk91/bandwidth-notification-channel.svg)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel/stats)
+[![StyleCI](https://styleci.io/repos/144573966/shield?branch=master&style=plastic)](https://styleci.io/repos/144573966)
+[![Build Status](https://travis-ci.com/ankurk91/bandwidth-notification-channel.svg)](https://travis-ci.com/ankurk91/bandwidth-notification-channel)
+[![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v5.6.
 
@@ -36,6 +37,14 @@ Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credential
 ],
 ```
 The `from` option is the phone number that your SMS messages will be sent from. 
+
+Also update your `.env.example` and `.env` files:
+```
+BANDWIDTH_USER_ID=
+BANDWIDTH_API_TOKEN=
+BANDWIDTH_API_SECRET=
+BANDWIDTH_FROM=
+```
 
 ## Usage
 Now you can use the Bandwidth channel in your `via()` method inside the notification class:
@@ -124,4 +133,4 @@ composer test
 * Bandwidth [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) for Developers
 
 ## License
-The MIT License.
+The [MIT](https://opensource.org/licenses/MIT) License.

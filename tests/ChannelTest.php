@@ -2,6 +2,8 @@
 
 namespace NotificationChannels\Bandwidth\Test;
 
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 use Mockery;
 use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthClient;
@@ -127,7 +129,7 @@ class ChannelTest extends TestCase
 
 class TestNotifiableModel
 {
-    use \Illuminate\Notifications\Notifiable;
+    use Notifiable;
 
     public function routeNotificationForBandwidth($notification)
     {
@@ -137,7 +139,7 @@ class TestNotifiableModel
 
 class TestNotifiableModelWithoutPhone
 {
-    use \Illuminate\Notifications\Notifiable;
+    use Notifiable;
 
     public function routeNotificationForBandwidth($notification)
     {
@@ -146,7 +148,7 @@ class TestNotifiableModelWithoutPhone
 
 }
 
-class TestNotification extends \Illuminate\Notifications\Notification
+class TestNotification extends Notification
 {
     public function toBandwidth($notifiable)
     {
@@ -155,7 +157,7 @@ class TestNotification extends \Illuminate\Notifications\Notification
     }
 }
 
-class TestNotificationWithoutMessageInstance extends \Illuminate\Notifications\Notification
+class TestNotificationWithoutMessageInstance extends Notification
 {
     public function toBandwidth($notifiable)
     {
@@ -163,7 +165,7 @@ class TestNotificationWithoutMessageInstance extends \Illuminate\Notifications\N
     }
 }
 
-class TestNotificationWithCustomFrom extends \Illuminate\Notifications\Notification
+class TestNotificationWithCustomFrom extends Notification
 {
     public function toBandwidth($notifiable)
     {
@@ -173,7 +175,7 @@ class TestNotificationWithCustomFrom extends \Illuminate\Notifications\Notificat
     }
 }
 
-class TestNotificationWithMedia extends \Illuminate\Notifications\Notification
+class TestNotificationWithMedia extends Notification
 {
     public function toBandwidth($notifiable)
     {
@@ -183,7 +185,7 @@ class TestNotificationWithMedia extends \Illuminate\Notifications\Notification
     }
 }
 
-class TestNotificationWithHttp extends \Illuminate\Notifications\Notification
+class TestNotificationWithHttp extends Notification
 {
     public function toBandwidth($notifiable)
     {
