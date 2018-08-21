@@ -5,6 +5,7 @@
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Downloads](https://img.shields.io/packagist/dt/ankurk91/bandwidth-notification-channel.svg?style=flat-square)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
 [![StyleCI](https://styleci.io/repos/144573966/shield?branch=master)](https://styleci.io/repos/144573966)
+[![Build Status](https://travis-ci.com/ankurk91/bandwidth-notification-channel.svg?branch=master)](https://travis-ci.com/ankurk91/bandwidth-notification-channel)
 
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v5.6.
 
@@ -103,7 +104,7 @@ class User extends Authenticatable
 ### Available **BandwidthMessage** methods
 * `content()`: (required) Accepts a string value for the notification body.
 * `from()`: Accepts a phone number to use as the notification sender.
-* `media()`: Accepts a url or array of urls to be used a MMS.
+* `media()`: Accepts a URL or array of URLs to be used a MMS.
 * `http()`: Accepts an `array` to send along with notification body; for eg: `callbackUrl`.
 
 ### Notes

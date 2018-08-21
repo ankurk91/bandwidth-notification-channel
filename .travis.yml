@@ -8,15 +8,20 @@ php:
 - 7.1
 - 7.2
 
+env:
+  matrix:
+  - COMPOSER_FLAGS="--prefer-lowest"
+  - COMPOSER_FLAGS=""
+
 # Note: Code coverage requires php-xDebug extension enabled on CI server
 
 install:
 - travis_retry composer self-update
-- travis_retry composer install --no-interaction --no-suggest
+- travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --no-suggest
 
 # Testing the app (see phpunit.xml) for configs, generating Code Coverage report
 script:
-- ./vendor/bin/phpunit --coverage-clover=coverage.xml
+- composer test -- --coverage-clover=coverage.xml
 
 #after_script:
 

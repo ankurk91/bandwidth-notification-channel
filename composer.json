@@ -13,7 +13,7 @@
   "authors": [
     {
       "name": "ankurk91",
-      "homepage": "https://ankurk91.github.io/",
+      "homepage": "https://ankurk91.github.io",
       "role": "Developer"
     }
   ],
@@ -41,7 +41,7 @@
     "sort-packages": true
   },
   "scripts": {
-    "test": "./vendor/bin/phpunit"
+    "test": "phpunit"
   },
   "extra": {
     "laravel": {

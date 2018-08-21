@@ -9,9 +9,11 @@
     convertWarningsToExceptions="true"
     processIsolation="false"
     stopOnFailure="false">
-    <testsuite name="Test Suite">
-        <directory suffix=".php">./tests</directory>
-    </testsuite>
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory suffix=".php">./tests</directory>
+        </testsuite>
+    </testsuites>
 
     <filter>
         <whitelist>
