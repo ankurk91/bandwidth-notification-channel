@@ -3,6 +3,7 @@
 namespace NotificationChannels\Bandwidth;
 
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\HandlerStack;
 
 class BandwidthClient
 {
@@ -23,6 +24,11 @@ class BandwidthClient
     protected $breakOnErrors = true;
 
     /**
+     * @var HandlerStack
+     */
+    protected $handlerStack;
+
+    /**
      * @var BandwidthConfig
      */
     private $config;
@@ -33,6 +39,8 @@ class BandwidthClient
     public function __construct(BandwidthConfig $config)
     {
         $this->config = $config;
+        // Creating default handler stack
+        $this->handlerStack = HandlerStack::create();
     }
 
     /**
@@ -44,6 +52,7 @@ class BandwidthClient
     protected function createClient()
     {
         $this->client = new GuzzleClient([
+            'handler' => $this->handlerStack,
             'base_uri' => self::API_BASE_URL,
             'connect_timeout' => 30,
             'timeout' => 10,
@@ -56,7 +65,20 @@ class BandwidthClient
     }
 
     /**
-     * Guzzle will not throw exceptions on https errors.
+     * Replace default handlers and Middleware.
+     *
+     * @param $handler HandlerStack
+     * @return $this
+     */
+    public function withHandlerStack(HandlerStack $handler)
+    {
+        $this->handlerStack = $handler;
+
+        return $this;
+    }
+
+    /**
+     * Prevent client throwing exceptions on https errors.
      *
      * @return $this
      */
