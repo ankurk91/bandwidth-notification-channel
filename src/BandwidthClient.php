@@ -2,8 +2,8 @@
 
 namespace NotificationChannels\Bandwidth;
 
-use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Client as GuzzleClient;
 
 class BandwidthClient
 {
