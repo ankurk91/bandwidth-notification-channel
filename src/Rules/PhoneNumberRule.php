@@ -31,7 +31,7 @@ class PhoneNumberRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return (bool)preg_match("/^\+?[1-9]\d{{$this->minimum},14}$/", (string) $value);
+        return (bool) preg_match("/^\+?[1-9]\d{{$this->minimum},14}$/", (string) $value);
     }
 
     /**
