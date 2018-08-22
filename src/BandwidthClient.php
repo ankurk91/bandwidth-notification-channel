@@ -45,8 +45,8 @@ class BandwidthClient
     {
         $this->client = new GuzzleClient([
             'base_uri' => self::API_BASE_URL,
-            'connect_timeout' => 10.0,
-            'timeout' => 10.0,
+            'connect_timeout' => 30,
+            'timeout' => 10,
             'http_errors' => $this->breakOnErrors,
             'debug' => $this->config->shouldDebug(),
             'auth' => [
