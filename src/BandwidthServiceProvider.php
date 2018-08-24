@@ -35,7 +35,7 @@ class BandwidthServiceProvider extends ServiceProvider
             );
         });
 
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang/', 'bandwidth');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'bandwidth');
     }
 
     /**
