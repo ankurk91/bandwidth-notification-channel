@@ -41,6 +41,6 @@ class PhoneNumberRule implements Rule
      */
     public function message()
     {
-        return 'The :attribute must follow the E.164 number format.';
+        return __('bandwidth::validation.phone_number');
     }
 }
