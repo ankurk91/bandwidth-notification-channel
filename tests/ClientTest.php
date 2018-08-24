@@ -61,7 +61,7 @@ class ClientTest extends TestCase
 
         $this->assertEquals(1, count($this->history), 'History container should have one entry.');
         $this->assertEquals('POST', $this->history[0]['request']->getMethod());
-        $this->assertEquals(200, $this->history[0]['response']->getStatusCode());
+        $this->assertSame(200, $this->history[0]['response']->getStatusCode());
         $this->assertEquals(json_encode($httpBody), $this->history[0]['request']->getBody());
     }
 }

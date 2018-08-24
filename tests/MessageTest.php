@@ -67,6 +67,6 @@ class MessageTest extends TestCase
         ];
 
         $this->message->http($httpBody);
-        $this->assertEquals($httpBody, $this->message->http);
+        $this->assertSame($httpBody, $this->message->http);
     }
 }

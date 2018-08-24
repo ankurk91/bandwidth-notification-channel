@@ -49,7 +49,7 @@ class ConfigTest extends TestCase
     /** @test */
     public function it_returns_the_http_debug_default_value_false()
     {
-        $this->assertEquals(false, $this->config->shouldDebug());
+        $this->assertSame(false, $this->config->shouldDebug());
     }
 
     /** @test */
@@ -71,7 +71,7 @@ class ConfigTest extends TestCase
     public function it_returns_the_from_value_as_null_when_not_set()
     {
         $config = new BandwidthConfig([]);
-        $this->assertEquals(null, $config->getFrom());
+        $this->assertSame(null, $config->getFrom());
     }
 
 }

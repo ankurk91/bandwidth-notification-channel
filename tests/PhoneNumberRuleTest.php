@@ -31,7 +31,7 @@ class PhoneNumberRuleTest extends TestCase
      * @test
      * @dataProvider invalidNumbersProvider
      */
-    public function it_can_fails_on_invalid_numbers($number, $expected)
+    public function it_fails_on_invalid_numbers($number, $expected)
     {
         $this->assertEquals($expected, $this->rule->passes('phone', $number));
     }
@@ -48,7 +48,7 @@ class PhoneNumberRuleTest extends TestCase
      * @test
      * @dataProvider validNumbersProvider
      */
-    public function it_can_passed_on_valid_numbers($number, $expected)
+    public function it_passes_on_valid_numbers($number, $expected)
     {
         $this->assertEquals($expected, $this->rule->passes('phone', $number));
     }
