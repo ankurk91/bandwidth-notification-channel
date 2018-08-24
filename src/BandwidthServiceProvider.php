@@ -17,7 +17,7 @@ class BandwidthServiceProvider extends ServiceProvider
         $this->app->when(BandwidthConfig::class)
             ->needs('$config')
             ->give(function () {
-                $config = config('services.bandwidth');
+                $config = $this->app['config']->get('services.bandwidth');
 
                 if (is_null($config)) {
                     throw new InvalidConfiguration();
