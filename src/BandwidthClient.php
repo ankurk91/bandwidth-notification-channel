@@ -57,7 +57,7 @@ class BandwidthClient
             'connect_timeout' => 30,
             'timeout' => 10,
             'http_errors' => $this->breakOnErrors,
-            'debug' => $this->config->shouldDebug(),
+            'debug' => $this->config->debugHttp(),
             'auth' => [
                 $this->config->getApiToken(), $this->config->getApiSecret(),
             ],
