@@ -16,7 +16,7 @@ class BandwidthClient
     /**
      * @var \GuzzleHttp\Client
      */
-    protected $client = null;
+    protected $guzzle = null;
 
     /**
      * @var bool
@@ -51,7 +51,7 @@ class BandwidthClient
      */
     protected function createClient()
     {
-        $this->client = new GuzzleClient([
+        $this->guzzle = new GuzzleClient([
             'handler' => $this->handlerStack,
             'base_uri' => self::API_BASE_URL,
             'connect_timeout' => 30,
@@ -96,11 +96,11 @@ class BandwidthClient
      */
     public function getClient()
     {
-        if (is_null($this->client)) {
+        if (is_null($this->guzzle)) {
             $this->createClient();
         }
 
-        return $this->client;
+        return $this->guzzle;
     }
 
     /**
