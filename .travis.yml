@@ -1,5 +1,5 @@
-# Config file for https://travis-ci.org/
-# Validate this file here - http://lint.travis-ci.org/
+# Config file for https://travis-ci.org
+# Validate this file here - http://lint.travis-ci.org
 
 language: php
 
@@ -13,12 +13,11 @@ env:
   - COMPOSER_FLAGS="--prefer-lowest"
   - COMPOSER_FLAGS=""
 
-# Note: Code coverage requires php-xDebug extension enabled on CI server
-
 install:
 - travis_retry composer self-update
 - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --no-suggest
 
+# Note: Code coverage requires php-xDebug extension enabled on CI server
 # Testing the app (see phpunit.xml) for configs, generating Code Coverage report
 script:
 - composer test -- --coverage-clover=coverage.xml
@@ -37,7 +36,7 @@ branches:
   - master
   - dev
 
-# You can delete the cache using travis-ci web interface
+# You can force delete the cache using travis-ci web interface
 cache:
   directories:
     - $HOME/.composer/cache

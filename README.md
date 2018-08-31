@@ -25,7 +25,7 @@ Add the service provider in `config/app.php` file:  (optional)
 ```
 
 ## Setting up your Bandwidth account
-Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credentials to your `config/services.php`:
+Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credentials in `config/services.php` file:
 ```php
 // config/services.php
 
@@ -36,8 +36,6 @@ Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credential
     'from' => env('BANDWIDTH_FROM'), 
 ],
 ```
-The `from` option is the phone number that your SMS messages will be sent from. 
-
 Also update your `.env.example` and `.env` files:
 ```
 BANDWIDTH_USER_ID=
@@ -45,6 +43,7 @@ BANDWIDTH_API_TOKEN=
 BANDWIDTH_API_SECRET=
 BANDWIDTH_FROM=
 ```
+The `from` option is the phone number that your messages will be sent from. 
 
 ## Usage
 Now you can use the Bandwidth channel in your `via()` method inside the notification class:
@@ -111,7 +110,7 @@ class User extends Authenticatable
 ```
 
 ### Available **BandwidthMessage** methods
-* `content()`: (required) Accepts a string value for the notification body.
+* `content()`: Accepts a string value for the notification body.
 * `from()`: Accepts a phone number to use as the notification sender.
 * `media()`: Accepts a URL or array of URLs to be used a MMS.
 * `http()`: Accepts an `array` to send along with notification body; for eg: `callbackUrl`.
@@ -128,7 +127,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 composer test
 ```
 
-## Resources
+### Resources
 * Bandwidth [FAQ](https://dev.bandwidth.com/faq) for Developers
 * Bandwidth [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) for Developers
 
