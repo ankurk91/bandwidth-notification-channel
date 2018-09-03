@@ -2,7 +2,6 @@
 
 namespace NotificationChannels\Bandwidth;
 
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client as GuzzleClient;
 
 class BandwidthClient
@@ -19,14 +18,9 @@ class BandwidthClient
     protected $guzzle = null;
 
     /**
-     * @var bool
+     * @var array
      */
-    protected $breakOnErrors = true;
-
-    /**
-     * @var HandlerStack
-     */
-    protected $handlerStack;
+    protected $options = [];
 
     /**
      * @var BandwidthConfig
@@ -39,8 +33,6 @@ class BandwidthClient
     public function __construct(BandwidthConfig $config)
     {
         $this->config = $config;
-        // Creating default handler stack
-        $this->handlerStack = HandlerStack::create();
     }
 
     /**
@@ -51,40 +43,28 @@ class BandwidthClient
      */
     protected function createClient()
     {
-        $this->guzzle = new GuzzleClient([
-            'handler' => $this->handlerStack,
-            'base_uri' => self::API_BASE_URL,
+        $this->guzzle = new GuzzleClient(array_merge([
+            'base_uri' => self::API_BASE_URL . "users/{$this->config->getUserId()}/",
             'connect_timeout' => 30,
             'timeout' => 10,
-            'http_errors' => $this->breakOnErrors,
+            'http_errors' => true,
             'debug' => $this->config->debugHttp(),
             'auth' => [
                 $this->config->getApiToken(), $this->config->getApiSecret(),
             ],
-        ]);
+        ], $this->options));
     }
 
-    /**
-     * Replace default handlers and Middleware.
-     *
-     * @param $handler HandlerStack
-     * @return $this
-     */
-    public function withHandlerStack(HandlerStack $handler)
-    {
-        $this->handlerStack = $handler;
-
-        return $this;
-    }
 
     /**
-     * Prevent client throwing exceptions on https errors.
+     * Set Guzzle client options.
      *
+     * @param $options array
      * @return $this
      */
-    public function withoutHttpErrors()
+    public function withOptions($options)
     {
-        $this->breakOnErrors = false;
+        $this->options = $options;
 
         return $this;
     }
@@ -111,8 +91,9 @@ class BandwidthClient
      * @param array $payload
      * @return mixed
      */
-    public function sendRequest($method, $url, array $payload)
+    public function sendRequest($method, $url, array $payload = [])
     {
+        $url = ltrim($url, '/');
         return $this->getClient()->request($method, $url, array_merge_recursive(
                 ['query' => $this->parseQueryParams($url)],
                 $this->buildOptionsForRequest($method, $payload)
@@ -165,6 +146,6 @@ class BandwidthClient
      */
     public function sendMessage(array $body = [])
     {
-        return $this->sendRequest('POST', "users/{$this->config->getUserId()}/messages", $body);
+        return $this->sendRequest('POST', "messages", $body);
     }
 }

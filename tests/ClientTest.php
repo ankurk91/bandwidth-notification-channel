@@ -26,9 +26,9 @@ class ClientTest extends TestCase
         parent::setUp();
 
         $config = new BandwidthConfig([
-            'user_id' => 'user_id',
-            'api_token' => 'token',
-            'api_secret' => 'secret',
+            'user_id' => 'fake_user_id',
+            'api_token' => 'fake_token',
+            'api_secret' => 'fake_secret',
             'from' => '+1234567890',
         ]);
 
@@ -39,7 +39,9 @@ class ClientTest extends TestCase
         );
         $stack->push(\GuzzleHttp\Middleware::history($this->history));
 
-        $this->client = (new BandwidthClient($config))->withHandlerStack($stack);
+        $this->client = (new BandwidthClient($config))->withOptions([
+            'handler' => $stack
+        ]);
     }
 
     /** @test */
@@ -59,9 +61,23 @@ class ClientTest extends TestCase
 
         $this->client->sendMessage($httpBody);
 
-        $this->assertEquals(1, count($this->history), 'History container should have one entry.');
+        $this->assertCount(1, $this->history, 'History container should have one entry.');
         $this->assertEquals('POST', $this->history[0]['request']->getMethod());
         $this->assertSame(200, $this->history[0]['response']->getStatusCode());
+
+        $this->assertContains('messages', $this->history[0]['request']->getUri()->getPath());
         $this->assertEquals(json_encode($httpBody), $this->history[0]['request']->getBody());
+    }
+
+    /** @test */
+    public function it_can_send_get_request()
+    {
+        $this->client->sendRequest('get', 'errors?page=50');
+
+        $this->assertCount(1, $this->history, 'History container should have one entry.');
+        $this->assertEquals('GET', $this->history[0]['request']->getMethod());
+        $this->assertSame(200, $this->history[0]['response']->getStatusCode());
+
+        $this->assertContains('errors', $this->history[0]['request']->getUri()->getPath());
     }
 }

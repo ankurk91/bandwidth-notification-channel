@@ -20,7 +20,7 @@ class BandwidthServiceProvider extends ServiceProvider
                 $config = $this->app['config']->get('services.bandwidth');
 
                 if (is_null($config)) {
-                    throw new InvalidConfiguration();
+                    throw InvalidConfiguration::missingConfig();
                 }
 
                 return $config;
@@ -35,10 +35,10 @@ class BandwidthServiceProvider extends ServiceProvider
             );
         });
 
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'bandwidth');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang/', 'bandwidth');
 
         $this->publishes([
-            __DIR__.'/../resources/lang/' => resource_path('lang/vendor/bandwidth'),
+            __DIR__ . '/../resources/lang/' => resource_path('lang/vendor/bandwidth'),
         ]);
     }
 

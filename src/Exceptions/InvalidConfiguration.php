@@ -7,12 +7,10 @@ use Exception;
 class InvalidConfiguration extends Exception
 {
     /**
-     * @param  string $message
-     * @return void
+     * @return InvalidConfiguration
      */
-    public function __construct($message = null)
+    public static function missingConfig()
     {
-        $message = $message ?: 'In order to send notification via Bandwidth you need to add credentials in the `bandwidth` key of `config.services`.';
-        parent::__construct($message);
+        return new static('In order to send notification via Bandwidth you need to add credentials in the `bandwidth` key of `config.services`.');
     }
 }

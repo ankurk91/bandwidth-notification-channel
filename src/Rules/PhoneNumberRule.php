@@ -41,6 +41,6 @@ class PhoneNumberRule implements Rule
      */
     public function message()
     {
-        return __('bandwidth::validation.phone_number');
+        return trans('bandwidth::validation.phone_number');
     }
 }

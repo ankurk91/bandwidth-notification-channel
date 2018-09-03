@@ -86,12 +86,12 @@ class BandwidthMessage
     /**
      * Set additional request options for the Guzzle HTTP client.
      *
-     * @param  array  $options
+     * @param  array  $body
      * @return $this
      */
-    public function http(array $options)
+    public function http(array $body)
     {
-        $this->http = $options;
+        $this->http = $body;
 
         return $this;
     }
