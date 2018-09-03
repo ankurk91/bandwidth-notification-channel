@@ -44,7 +44,7 @@ class BandwidthClient
     protected function createClient()
     {
         $this->guzzle = new GuzzleClient(array_merge([
-            'base_uri' => self::API_BASE_URL . "users/{$this->config->getUserId()}/",
+            'base_uri' => self::API_BASE_URL."users/{$this->config->getUserId()}/",
             'connect_timeout' => 30,
             'timeout' => 10,
             'http_errors' => true,
@@ -54,7 +54,6 @@ class BandwidthClient
             ],
         ], $this->options));
     }
-
 
     /**
      * Set Guzzle client options.
@@ -94,6 +93,7 @@ class BandwidthClient
     public function sendRequest($method, $url, array $payload = [])
     {
         $url = ltrim($url, '/');
+
         return $this->getClient()->request($method, $url, array_merge_recursive(
                 ['query' => $this->parseQueryParams($url)],
                 $this->buildOptionsForRequest($method, $payload)
@@ -146,6 +146,6 @@ class BandwidthClient
      */
     public function sendMessage(array $body = [])
     {
-        return $this->sendRequest('POST', "messages", $body);
+        return $this->sendRequest('POST', 'messages', $body);
     }
 }
