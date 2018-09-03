@@ -18,7 +18,6 @@ install:
 - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --no-suggest
 
 # Note: Code coverage requires php-xDebug extension enabled on CI server
-# Testing the app (see phpunit.xml) for configs, generating Code Coverage report
 script:
 - composer test -- --coverage-clover=coverage.xml
 
