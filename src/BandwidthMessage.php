@@ -21,7 +21,7 @@ class BandwidthMessage
     /**
      * A media url to the location of the media or list of medias to be sent send with the message.
      *
-     * @var string
+     * @var string|array
      */
     public $media = null;
 
