@@ -53,12 +53,16 @@ Now you can use the Bandwidth channel in your `via()` method inside the notifica
 
 namespace App\Notifications;
 
+use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthMessage;
 
 class AccountApproved extends Notification
 {
+    use Queueable;
+    
     /**
      * Get the notification channels.
      *
