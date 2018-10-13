@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.0.0
+* Upgrade Bandwidth API version to 2.0 
+
 ### 1.6.0
 * Add: throw custom exception on failure
 * Add: dispatch `NotificationFailed` event before throwing exception

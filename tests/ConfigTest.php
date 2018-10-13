@@ -16,16 +16,23 @@ class ConfigTest extends TestCase
      * @var array
      */
     protected $params = [
-        'user_id' => 'user_123',
-        'api_token' => 'token_123',
-        'api_secret' => 'secret_123',
-        'from' => '+123456789',
+        'application_id' => 'demo_application_id',
+        'user_id' => 'demo_user_id',
+        'api_token' => 'demo_token',
+        'api_secret' => 'demo_secret',
+        'from' => '+1234567890',
     ];
 
     public function setUp()
     {
         parent::setUp();
         $this->config = new BandwidthConfig($this->params);
+    }
+
+    /** @test */
+    public function it_returns_the_application_id()
+    {
+        $this->assertEquals($this->params['application_id'], $this->config->getApplicationId());
     }
 
     /** @test */

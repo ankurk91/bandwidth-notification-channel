@@ -123,6 +123,7 @@ class BandwidthChannel
         return array_merge([
             'from' => $this->config->getFrom(),
             'to' => $to,
+            'applicationId' => $this->config->getApplicationId(),
         ], $message->toArray());
     }
 }

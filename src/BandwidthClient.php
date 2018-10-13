@@ -10,7 +10,7 @@ class BandwidthClient
      * @source https://dev.bandwidth.com/ap-docs/
      * @var string
      */
-    const API_BASE_URL = 'https://api.catapult.inetwork.com/v1/';
+    const API_BASE_URL = 'https://api.catapult.inetwork.com/v2/';
 
     /**
      * @var \GuzzleHttp\Client

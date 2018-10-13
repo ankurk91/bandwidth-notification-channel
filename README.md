@@ -10,10 +10,16 @@
 
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v5.6+
 
+## Package versions
+| Bandwidth API   | Branch   | Package version  |
+|-----------------|----------|----------------- |
+| `1.0`           | `1.x`    | `1.*`            |
+| `2.0`           | `master` | `2.*`            |
+
 ## Installation
 You can install the package via composer:
 ```
-composer require ankurk91/bandwidth-notification-channel:1.*
+composer require ankurk91/bandwidth-notification-channel:2.*
 ```
 Add the service provider in `config/app.php` file:  (optional)
 ```php
@@ -30,6 +36,7 @@ Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credential
 // config/services.php
 
 'bandwidth' => [
+    'application_id' => env('BANDWIDTH_APPLICATION_ID'), 
     'user_id' => env('BANDWIDTH_USER_ID'), 
     'api_token' => env('BANDWIDTH_API_TOKEN'), 
     'api_secret' => env('BANDWIDTH_API_SECRET'), 
@@ -39,6 +46,7 @@ Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credential
 ```
 Also update your `.env.example` and `.env` files:
 ```
+BANDWIDTH_APPLICATION_ID=
 BANDWIDTH_USER_ID=
 BANDWIDTH_API_TOKEN=
 BANDWIDTH_API_SECRET=
@@ -107,7 +115,7 @@ class User extends Authenticatable
      * Route notifications for the bandwidth channel.
      *
      * @param  \Illuminate\Notifications\Notification  $notification
-     * @return string|boolean
+     * @return array|string|boolean
      */
     public function routeNotificationForBandwidth($notification)
     {
@@ -139,7 +147,8 @@ If you discover any security related issues, please email `pro.ankurk1[at]gmail[
 
 ### Resources
 * Bandwidth [FAQ](https://dev.bandwidth.com/faq) for Developers
-* Bandwidth [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) for Developers
+* Bandwidth v1 API [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) 
+* Bandwidth v2 API [Docs](https://dev.bandwidth.com/v2-messaging/)
 * Phone number validation [regex](https://stackoverflow.com/questions/6478875/regular-expression-matching-e-164-formatted-phone-numbers)
 
 ## License
