@@ -14,7 +14,7 @@ This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messagi
 ## Installation
 You can install the package via composer:
 ```
-composer require ankurk91/bandwidth-notification-channel
+composer require ankurk91/bandwidth-notification-channel:1.*
 ```
 Add the service provider in `config/app.php` file:  (optional)
 ```php
@@ -114,7 +114,7 @@ class User extends Authenticatable
 }
 ```
 
-### Available **BandwidthMessage** methods
+### Available `BandwidthMessage` methods
 * `content()`: Accepts a string value for the notification body.
 * `from()`: Accepts a phone number to use as the notification sender.
 * `media()`: Accepts a URL or array of URLs to be used a MMS.
@@ -133,7 +133,7 @@ composer test
 ```
 
 ## Security
-If you discover any security related issues, please email `pro.ankurk1[at]gmail.com` instead of using the issue tracker.
+If you discover any security related issues, please email `pro.ankurk1[at]gmail[dot]com` instead of using the issue tracker.
 
 ### Resources
 * Bandwidth [FAQ](https://dev.bandwidth.com/faq) for Developers
