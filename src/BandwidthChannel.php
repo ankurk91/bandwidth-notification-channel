@@ -52,7 +52,7 @@ class BandwidthChannel
         return $this->client->sendMessage(array_merge([
             'from' => $message->from ?: $this->from,
             'to' => $to,
-            'text' => trim($message->content),
+            'text' => $message->content,
             'media' => $message->media,
         ], $message->http));
     }
