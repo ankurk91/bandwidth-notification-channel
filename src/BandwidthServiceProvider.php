@@ -34,12 +34,6 @@ class BandwidthServiceProvider extends ServiceProvider
                 $bandwidthConfig->getFrom()
             );
         });
-
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'bandwidth');
-
-        $this->publishes([
-            __DIR__.'/../resources/lang/' => resource_path('lang/vendor/bandwidth'),
-        ]);
     }
 
     /**
