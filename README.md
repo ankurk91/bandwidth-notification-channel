@@ -7,7 +7,6 @@
 [![StyleCI](https://styleci.io/repos/144573966/shield?branch=master&style=plastic)](https://styleci.io/repos/144573966)
 [![Build Status](https://travis-ci.com/ankurk91/bandwidth-notification-channel.svg)](https://travis-ci.com/ankurk91/bandwidth-notification-channel)
 [![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
-[![Code Quality](https://scrutinizer-ci.com/g/ankurk91/bandwidth-notification-channel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ankurk91/bandwidth-notification-channel/?branch=master)
 
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v5.6+
 
