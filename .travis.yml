@@ -1,6 +1,3 @@
-# Config file for https://travis-ci.org
-# Validate this file with http://lint.travis-ci.org
-
 language: php
 
 # Define the php versions against we want to test our code
