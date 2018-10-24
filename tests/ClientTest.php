@@ -7,9 +7,8 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use NotificationChannels\Bandwidth\BandwidthClient;
 use NotificationChannels\Bandwidth\BandwidthConfig;
-use PHPUnit\Framework\TestCase;
 
-class ClientTest extends TestCase
+class ClientTest extends \Orchestra\Testbench\TestCase
 {
     /**
      * @var BandwidthClient

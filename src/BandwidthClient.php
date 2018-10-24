@@ -88,6 +88,7 @@ class BandwidthClient
      * @param $method string
      * @param $url  string
      * @param array $payload
+     * @throws /\Exception
      * @return mixed
      */
     public function sendRequest($method, $url, array $payload = [])

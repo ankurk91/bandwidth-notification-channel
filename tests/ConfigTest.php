@@ -53,12 +53,27 @@ class ConfigTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_the_http_debug_default_value_when_set()
+    public function it_returns_the_http_debug_value_when_set()
     {
         $config = new BandwidthConfig([
             'debug_http' => true
         ]);
         $this->assertTrue($config->debugHttp());
+    }
+
+    /** @test */
+    public function it_returns_the_simulate_default_value_false()
+    {
+        $this->assertFalse($this->config->simulate());
+    }
+
+    /** @test */
+    public function it_returns_the_simulate_value_when_set()
+    {
+        $config = new BandwidthConfig([
+            'simulate' => true
+        ]);
+        $this->assertTrue($config->simulate());
     }
 
     /** @test */

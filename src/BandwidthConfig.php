@@ -2,6 +2,8 @@
 
 namespace NotificationChannels\Bandwidth;
 
+use Illuminate\Support\Arr;
+
 class BandwidthConfig
 {
     /**
@@ -54,7 +56,7 @@ class BandwidthConfig
      */
     public function getFrom()
     {
-        return array_get($this->config, 'from', null);
+        return Arr::get($this->config, 'from', null);
     }
 
     /**
@@ -65,6 +67,16 @@ class BandwidthConfig
      */
     public function debugHttp()
     {
-        return array_get($this->config, 'debug_http', false);
+        return Arr::get($this->config, 'debug_http', false);
+    }
+
+    /**
+     * Simulate API calls by logging them.
+     *
+     * @return bool
+     */
+    public function simulate()
+    {
+        return Arr::get($this->config, 'simulate', false);
     }
 }

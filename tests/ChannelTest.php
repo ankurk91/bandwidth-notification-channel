@@ -9,9 +9,8 @@ use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthClient;
 use NotificationChannels\Bandwidth\BandwidthConfig;
 use NotificationChannels\Bandwidth\BandwidthMessage;
-use PHPUnit\Framework\TestCase;
 
-class ChannelTest extends TestCase
+class ChannelTest extends \Orchestra\Testbench\TestCase
 {
     use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
@@ -29,15 +28,20 @@ class ChannelTest extends TestCase
     {
         parent::setUp();
 
-        $config = new BandwidthConfig([
+        $config = $this->getConfig();
+
+        $this->client = Mockery::mock(BandwidthClient::class, [$config]);
+        $this->channel = new BandwidthChannel($this->client, $config);
+    }
+
+    protected function getConfig($config = [])
+    {
+        return new BandwidthConfig(array_merge([
             'user_id' => 'user_id',
             'api_token' => 'token',
             'api_secret' => 'secret',
             'from' => '+1234567890',
-        ]);
-
-        $this->client = Mockery::mock(BandwidthClient::class, [$config]);
-        $this->channel = new BandwidthChannel($this->client, $config);
+        ], $config));
     }
 
     /** @test */
@@ -123,6 +127,15 @@ class ChannelTest extends TestCase
         $this->client->shouldNotReceive('sendMessage');
 
         $this->channel->send(new TestNotifiableModelWithoutPhone(), new TestNotification());
+    }
+
+    /** @test */
+    public function it_can_not_send_notification_in_simulation()
+    {
+        $this->client->shouldNotReceive('sendMessage');
+
+        $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]));
+        $channel->send(new TestNotifiableModel(), new TestNotification());
     }
 }
 
