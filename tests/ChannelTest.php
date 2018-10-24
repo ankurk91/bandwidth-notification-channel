@@ -37,7 +37,7 @@ class ChannelTest extends TestCase
         ]);
 
         $this->client = Mockery::mock(BandwidthClient::class, [$config]);
-        $this->channel = new BandwidthChannel($this->client, $config->getFrom());
+        $this->channel = new BandwidthChannel($this->client, $config);
     }
 
     /** @test */

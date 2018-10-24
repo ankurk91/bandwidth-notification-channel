@@ -25,15 +25,6 @@ class BandwidthServiceProvider extends ServiceProvider
 
                 return $config;
             });
-
-        $this->app->bind(BandwidthChannel::class, function ($app) {
-            $bandwidthConfig = $app->make(BandwidthConfig::class);
-
-            return new BandwidthChannel(
-                $app->make(BandwidthClient::class),
-                $bandwidthConfig->getFrom()
-            );
-        });
     }
 
     /**

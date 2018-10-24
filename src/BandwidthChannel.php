@@ -12,22 +12,20 @@ class BandwidthChannel
     protected $client;
 
     /**
-     * The phone number notifications should be sent from.
-     *
-     * @var string
+     * @var BandwidthConfig
      */
-    protected $from;
+    protected $config;
 
     /**
      * Create a new bandwidth channel instance.
      *
      * @param BandwidthClient $client
-     * @param $from string
+     * @param BandwidthConfig $config
      */
-    public function __construct(BandwidthClient $client, $from = null)
+    public function __construct(BandwidthClient $client, BandwidthConfig $config)
     {
         $this->client = $client;
-        $this->from = $from;
+        $this->config = $config;
     }
 
     /**
@@ -49,11 +47,21 @@ class BandwidthChannel
             $message = new BandwidthMessage($message);
         }
 
-        return $this->client->sendMessage(array_merge([
-            'from' => $message->from ?: $this->from,
+        return $this->client->sendMessage($this->getPayload($message, $to));
+    }
+
+    /**
+     * @param $message BandwidthMessage
+     * @param $to string
+     * @return array
+     */
+    protected function getPayload(BandwidthMessage $message, $to)
+    {
+        return array_merge([
+            'from' => $message->from ?: $this->config->getFrom(),
             'to' => $to,
             'text' => $message->content,
             'media' => $message->media,
-        ], $message->http));
+        ], $message->http);
     }
 }
