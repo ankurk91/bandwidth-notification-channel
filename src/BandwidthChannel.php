@@ -2,8 +2,8 @@
 
 namespace NotificationChannels\Bandwidth;
 
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Notifications\Notification;
 
 class BandwidthChannel
 {
@@ -52,6 +52,7 @@ class BandwidthChannel
 
         if ($this->config->simulate()) {
             Log::debug('Bandwidth Message:', $payload);
+
             return $payload;
         }
 
