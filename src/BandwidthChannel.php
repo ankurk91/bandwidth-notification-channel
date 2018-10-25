@@ -2,8 +2,8 @@
 
 namespace NotificationChannels\Bandwidth;
 
-use Illuminate\Notifications\Notification;
 use Psr\Log\LoggerInterface;
+use Illuminate\Notifications\Notification;
 
 class BandwidthChannel
 {
@@ -17,6 +17,9 @@ class BandwidthChannel
      */
     protected $config;
 
+    /**
+     * @var LoggerInterface
+     */
     protected $logger;
 
     /**
@@ -55,6 +58,7 @@ class BandwidthChannel
 
         if ($this->config->simulate()) {
             $this->logger->debug('Bandwidth Message:', $payload);
+
             return $payload;
         }
 
