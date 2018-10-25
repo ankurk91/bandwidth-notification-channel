@@ -3,12 +3,13 @@
 namespace NotificationChannels\Bandwidth\Test;
 
 use GuzzleHttp\Handler\MockHandler;
+use PHPUnit\Framework\TestCase;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use NotificationChannels\Bandwidth\BandwidthClient;
 use NotificationChannels\Bandwidth\BandwidthConfig;
 
-class ClientTest extends \Orchestra\Testbench\TestCase
+class ClientTest extends TestCase
 {
     /**
      * @var BandwidthClient

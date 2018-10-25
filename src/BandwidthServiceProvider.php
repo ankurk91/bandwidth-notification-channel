@@ -25,6 +25,12 @@ class BandwidthServiceProvider extends ServiceProvider
 
                 return $config;
             });
+
+        $this->app->when(BandwidthChannel::class)
+            ->needs('$logger')
+            ->give(function () {
+                return logger();
+            });
     }
 
     /**

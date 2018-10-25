@@ -2,8 +2,8 @@
 
 namespace NotificationChannels\Bandwidth;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notification;
+use Psr\Log\LoggerInterface;
 
 class BandwidthChannel
 {
@@ -17,16 +17,19 @@ class BandwidthChannel
      */
     protected $config;
 
+    protected $logger;
+
     /**
      * Create a new bandwidth channel instance.
      *
      * @param BandwidthClient $client
      * @param BandwidthConfig $config
      */
-    public function __construct(BandwidthClient $client, BandwidthConfig $config)
+    public function __construct(BandwidthClient $client, BandwidthConfig $config, LoggerInterface $logger)
     {
         $this->client = $client;
         $this->config = $config;
+        $this->logger = $logger;
     }
 
     /**
@@ -51,8 +54,7 @@ class BandwidthChannel
         $payload = $this->getPayload($message, $to);
 
         if ($this->config->simulate()) {
-            Log::debug('Bandwidth Message:', $payload);
-
+            $this->logger->debug('Bandwidth Message:', $payload);
             return $payload;
         }
 
@@ -64,7 +66,7 @@ class BandwidthChannel
      * @param $to string
      * @return array
      */
-    protected function getPayload(BandwidthMessage $message, $to)
+    public function getPayload(BandwidthMessage $message, $to)
     {
         return array_merge([
             'from' => $message->from ?: $this->config->getFrom(),

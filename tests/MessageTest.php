@@ -2,9 +2,10 @@
 
 namespace NotificationChannels\Bandwidth\Test;
 
+use PHPUnit\Framework\TestCase;
 use NotificationChannels\Bandwidth\BandwidthMessage;
 
-class MessageTest extends \Orchestra\Testbench\TestCase
+class MessageTest extends TestCase
 {
     /**
      * @var BandwidthMessage
