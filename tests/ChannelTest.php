@@ -142,7 +142,13 @@ class ChannelTest extends TestCase
     {
         $this->client->shouldNotReceive('sendMessage');
         $this->logger->shouldReceive('debug')
-            ->once();
+            ->once()
+            ->with('Bandwidth Message:', [
+                'from' => '+1234567890',
+                'to' => '+1234567890',
+                'text' => 'Test message content.',
+                'media' => null,
+            ]);
 
         $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]), $this->logger);
         $channel->send(new TestNotifiableModel(), new TestNotification());

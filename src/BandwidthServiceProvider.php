@@ -29,7 +29,7 @@ class BandwidthServiceProvider extends ServiceProvider
         $this->app->when(BandwidthChannel::class)
             ->needs('$logger')
             ->give(function () {
-                return logger();
+                return $this->app['log'];
             });
     }
 

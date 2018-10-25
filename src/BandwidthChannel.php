@@ -27,6 +27,7 @@ class BandwidthChannel
      *
      * @param BandwidthClient $client
      * @param BandwidthConfig $config
+     * @param LoggerInterface $logger
      */
     public function __construct(BandwidthClient $client, BandwidthConfig $config, LoggerInterface $logger)
     {
@@ -70,7 +71,7 @@ class BandwidthChannel
      * @param $to string
      * @return array
      */
-    public function getPayload(BandwidthMessage $message, $to)
+    protected function getPayload(BandwidthMessage $message, $to)
     {
         return array_merge([
             'from' => $message->from ?: $this->config->getFrom(),

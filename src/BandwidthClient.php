@@ -61,7 +61,7 @@ class BandwidthClient
      * @param $options array
      * @return $this
      */
-    public function withOptions($options)
+    public function withOptions(array $options)
     {
         $this->options = $options;
 
