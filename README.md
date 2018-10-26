@@ -120,7 +120,7 @@ class User extends Authenticatable
 * `content()`: Accepts a string value for the notification body.
 * `from()`: Accepts a phone number to use as the notification sender.
 * `media()`: Accepts a URL or array of URLs to be used a MMS.
-* `http()`: Accepts an `array` to send along with notification body; for eg: `callbackUrl`.
+* `http()`: Accepts an `array` to send along with notification body.
 
 ### Notes
 * The `from` and `to` numbers must be in `E.164` format, for example `+14244443192`. 

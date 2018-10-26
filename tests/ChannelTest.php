@@ -31,15 +31,20 @@ class ChannelTest extends TestCase
      */
     protected $logger;
 
+    /**
+     * @var BandwidthConfig
+     */
+    protected $config;
+
     public function setUp()
     {
         parent::setUp();
 
-        $config = $this->getConfig();
+        $this->config = $this->getConfig();
 
-        $this->client = Mockery::mock(BandwidthClient::class, [$config]);
+        $this->client = Mockery::mock(BandwidthClient::class, [$this->config]);
         $this->logger = Mockery::mock(LoggerInterface::class);
-        $this->channel = new BandwidthChannel($this->client, $config, $this->logger);
+        $this->channel = new BandwidthChannel($this->client, $this->config, $this->logger);
     }
 
     protected function getConfig($config = [])
@@ -119,7 +124,7 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'callbackUrl' => 'http://localhost/callback'
+                'tag' => 'info'
             ]);
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttp());
@@ -216,7 +221,7 @@ class TestNotificationWithHttp extends Notification
         return (new BandwidthMessage())
             ->content("Test message content.")
             ->http([
-                'callbackUrl' => 'http://localhost/callback'
+                'tag' => 'info'
             ]);
     }
 }

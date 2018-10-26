@@ -63,10 +63,10 @@ class MessageTest extends TestCase
     public function it_can_set_the_http_body()
     {
         $httpBody = [
-            'callbackUrl' => 'http://localhost/callback'
+            'tag' => 'info'
         ];
 
         $this->message->http($httpBody);
-        $this->assertSame($this->message->getParameter('callbackUrl'), $httpBody['callbackUrl']);
+        $this->assertSame($this->message->getParameter('tag'), $httpBody['tag']);
     }
 }

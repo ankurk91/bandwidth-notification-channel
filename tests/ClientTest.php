@@ -17,6 +17,11 @@ class ClientTest extends TestCase
     protected $client;
 
     /**
+     * @var BandwidthConfig
+     */
+    protected $config;
+
+    /**
      * @var array
      */
     protected $history = [];
@@ -25,10 +30,10 @@ class ClientTest extends TestCase
     {
         parent::setUp();
 
-        $config = new BandwidthConfig([
-            'user_id' => 'fake_user_id',
-            'api_token' => 'fake_token',
-            'api_secret' => 'fake_secret',
+        $this->config = new BandwidthConfig([
+            'user_id' => 'demo_user_id',
+            'api_token' => 'demo_token',
+            'api_secret' => 'demo_secret',
             'from' => '+1234567890',
         ]);
 
@@ -39,7 +44,7 @@ class ClientTest extends TestCase
         );
         $stack->push(\GuzzleHttp\Middleware::history($this->history));
 
-        $this->client = (new BandwidthClient($config))->withOptions([
+        $this->client = (new BandwidthClient($this->config))->withOptions([
             'handler' => $stack
         ]);
     }
