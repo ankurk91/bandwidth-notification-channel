@@ -64,7 +64,7 @@ class BandwidthMessage
 
     /**
      * Set additional request options for the Guzzle HTTP client.
-     * Note: this method can overwrite existing keys in payload
+     * Note: this method can overwrite existing keys in payload.
      *
      * @param  array $body
      * @return $this
