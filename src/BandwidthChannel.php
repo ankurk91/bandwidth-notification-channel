@@ -55,7 +55,7 @@ class BandwidthChannel
             $message = new BandwidthMessage($message);
         }
 
-        $payload = $this->getPayload($message, $to);
+        $payload = $this->payload($message, $to);
 
         if ($this->config->simulate()) {
             $this->logger->debug('Bandwidth Message:', $payload);
@@ -67,17 +67,17 @@ class BandwidthChannel
     }
 
     /**
-     * @param $message BandwidthMessage
-     * @param $to string
+     * Prepare the http payload.
+     *
+     * @param BandwidthMessage $message
+     * @param string $to
      * @return array
      */
-    protected function getPayload(BandwidthMessage $message, $to)
+    protected function payload(BandwidthMessage $message, $to)
     {
         return array_merge([
-            'from' => $message->from ?: $this->config->getFrom(),
+            'from' => $this->config->getFrom(),
             'to' => $to,
-            'text' => $message->content,
-            'media' => $message->media,
-        ], $message->http);
+        ], $message->toArray());
     }
 }

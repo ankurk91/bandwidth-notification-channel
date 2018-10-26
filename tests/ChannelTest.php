@@ -61,7 +61,6 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'media' => null,
             ]);
 
         $this->channel->send(new TestNotifiableModel(), new TestNotification());
@@ -76,7 +75,6 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'media' => null,
             ]);
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithoutMessageInstance());
@@ -92,7 +90,6 @@ class ChannelTest extends TestCase
                 'from' => '+1987654320',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'media' => null,
             ]);
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithCustomFrom());
@@ -122,7 +119,6 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'media' => null,
                 'callbackUrl' => 'http://localhost/callback'
             ]);
 
@@ -147,7 +143,6 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'media' => null,
             ]);
 
         $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]), $this->logger);

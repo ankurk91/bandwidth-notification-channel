@@ -2,35 +2,14 @@
 
 namespace NotificationChannels\Bandwidth;
 
+use Illuminate\Support\Arr;
+
 class BandwidthMessage
 {
     /**
-     * The message content.
-     *
-     * @var string
-     */
-    public $content;
-
-    /**
-     * The phone number the message should be sent from.
-     *
-     * @var string
-     */
-    public $from;
-
-    /**
-     * A media url to the location of the media or list of medias to be sent send with the message.
-     *
-     * @var string|array
-     */
-    public $media = null;
-
-    /**
-     * Additional request options for the Guzzle HTTP client.
-     *
      * @var array
      */
-    public $http = [];
+    protected $payload = [];
 
     /**
      * Create a new message instance.
@@ -40,7 +19,7 @@ class BandwidthMessage
      */
     public function __construct($content = '')
     {
-        $this->content = $content;
+        $this->setParameter('text', $content);
     }
 
     /**
@@ -51,7 +30,7 @@ class BandwidthMessage
      */
     public function content($content)
     {
-        $this->content = $content;
+        $this->setParameter('text', $content);
 
         return $this;
     }
@@ -64,7 +43,7 @@ class BandwidthMessage
      */
     public function from($from)
     {
-        $this->from = $from;
+        $this->setParameter('from', $from);
 
         return $this;
     }
@@ -78,21 +57,58 @@ class BandwidthMessage
      */
     public function media($media)
     {
-        $this->media = $media;
+        $this->setParameter('media', $media);
 
         return $this;
     }
 
     /**
      * Set additional request options for the Guzzle HTTP client.
+     * Note: this method can overwrite existing keys in payload
      *
-     * @param  array  $body
+     * @param  array $body
      * @return $this
      */
     public function http(array $body)
     {
-        $this->http = $body;
+        $this->payload = array_merge($this->payload, $body);
 
         return $this;
+    }
+
+    /**
+     * Set parameters.
+     *
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return $this
+     */
+    public function setParameter(string $key, $value)
+    {
+        Arr::set($this->payload, $key, $value);
+
+        return $this;
+    }
+
+    /**
+     * Get parameters.
+     *
+     * @param string $key
+     * @param mixed $default
+     *
+     * @return mixed
+     */
+    public function getParameter(string $key, $default = null)
+    {
+        return Arr::get($this->payload, $key, $default);
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->payload;
     }
 }
