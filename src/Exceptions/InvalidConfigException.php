@@ -4,10 +4,10 @@ namespace NotificationChannels\Bandwidth\Exceptions;
 
 use Exception;
 
-class InvalidConfiguration extends Exception
+class InvalidConfigException extends Exception
 {
     /**
-     * @return InvalidConfiguration
+     * @return self
      */
     public static function missingConfig()
     {

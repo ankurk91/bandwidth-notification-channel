@@ -3,7 +3,7 @@
 namespace NotificationChannels\Bandwidth;
 
 use Illuminate\Support\ServiceProvider;
-use NotificationChannels\Bandwidth\Exceptions\InvalidConfiguration;
+use NotificationChannels\Bandwidth\Exceptions\InvalidConfigException;
 
 class BandwidthServiceProvider extends ServiceProvider
 {
@@ -20,7 +20,7 @@ class BandwidthServiceProvider extends ServiceProvider
                 $config = $this->app['config']->get('services.bandwidth');
 
                 if (is_null($config)) {
-                    throw InvalidConfiguration::missingConfig();
+                    throw InvalidConfigException::missingConfig();
                 }
 
                 return $config;

@@ -58,7 +58,7 @@ class BandwidthClient
     /**
      * Set Guzzle client options.
      *
-     * @param $options array
+     * @param array $options
      * @return $this
      */
     public function withOptions(array $options)
@@ -85,11 +85,10 @@ class BandwidthClient
     /**
      * Proxy method to guzzle request() method.
      *
-     * @param $method string
-     * @param $url  string
+     * @param string $method
+     * @param string $url
      * @param array $payload
-     * @throws /\Exception
-     * @return mixed
+     * @return mixed|\Psr\Http\Message\ResponseInterface
      */
     public function sendRequest($method, $url, array $payload = [])
     {
@@ -105,8 +104,8 @@ class BandwidthClient
     /**
      * Prepare payload according to http verb.
      *
-     * @param $method string
-     * @param $payload
+     * @param string $method
+     * @param array $payload
      * @return array
      */
     protected function buildOptionsForRequest($method, $payload)
@@ -127,7 +126,7 @@ class BandwidthClient
     /**
      * Extract query params from url.
      *
-     * @param $url string
+     * @param string $url
      * @return array
      */
     protected function parseQueryParams($url)

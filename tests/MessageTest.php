@@ -2,8 +2,8 @@
 
 namespace NotificationChannels\Bandwidth\Test;
 
-use PHPUnit\Framework\TestCase;
 use NotificationChannels\Bandwidth\BandwidthMessage;
+use PHPUnit\Framework\TestCase;
 
 class MessageTest extends TestCase
 {

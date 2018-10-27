@@ -2,14 +2,17 @@
 
 namespace NotificationChannels\Bandwidth\Test;
 
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Mockery;
-use PHPUnit\Framework\TestCase;
 use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthClient;
 use NotificationChannels\Bandwidth\BandwidthConfig;
 use NotificationChannels\Bandwidth\BandwidthMessage;
+use NotificationChannels\Bandwidth\Exceptions\CouldNotSendException;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 class ChannelTest extends TestCase
@@ -32,6 +35,11 @@ class ChannelTest extends TestCase
     protected $logger;
 
     /**
+     * @var Dispatcher
+     */
+    protected $events;
+
+    /**
      * @var BandwidthConfig
      */
     protected $config;
@@ -44,7 +52,8 @@ class ChannelTest extends TestCase
 
         $this->client = Mockery::mock(BandwidthClient::class, [$this->config]);
         $this->logger = Mockery::mock(LoggerInterface::class);
-        $this->channel = new BandwidthChannel($this->client, $this->config, $this->logger);
+        $this->events = Mockery::mock(Dispatcher::class);
+        $this->channel = new BandwidthChannel($this->client, $this->config, $this->logger, $this->events);
     }
 
     protected function getConfig($config = [])
@@ -66,7 +75,8 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-            ]);
+            ])
+            ->andReturn(new Response());
 
         $this->channel->send(new TestNotifiableModel(), new TestNotification());
     }
@@ -80,7 +90,8 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-            ]);
+            ])
+            ->andReturn(new Response());
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithoutMessageInstance());
     }
@@ -95,7 +106,9 @@ class ChannelTest extends TestCase
                 'from' => '+1987654320',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-            ]);
+            ])
+            ->andReturn(new Response());
+
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithCustomFrom());
     }
@@ -110,7 +123,9 @@ class ChannelTest extends TestCase
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
                 'media' => 'http://localhost/image.png',
-            ]);
+            ])
+            ->andReturn(new Response());
+
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithMedia());
     }
@@ -125,7 +140,29 @@ class ChannelTest extends TestCase
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
                 'tag' => 'info'
-            ]);
+            ])
+            ->andReturn(new Response());
+
+
+        $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttp());
+    }
+
+    /** @test */
+    public function it_should_throw_exception_on_failure()
+    {
+        $this->events->shouldReceive("dispatch")->once();
+        $this->client->shouldReceive('sendMessage')
+            ->once()
+            ->with([
+                'from' => '+1234567890',
+                'to' => '+1234567890',
+                'text' => 'Test message content.',
+                'tag' => 'info'
+            ])
+            ->andReturn(new Response(500))
+            ->andThrow(\Exception::class);
+
+        $this->expectException(CouldNotSendException::class);
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttp());
     }
@@ -144,13 +181,13 @@ class ChannelTest extends TestCase
         $this->client->shouldNotReceive('sendMessage');
         $this->logger->shouldReceive('debug')
             ->once()
-            ->with('Bandwidth Message:', [
+            ->with("Bandwidth Message-ID: <random-id>\n", [
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
             ]);
 
-        $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]), $this->logger);
+        $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]), $this->logger, $this->events);
         $channel->send(new TestNotifiableModel(), new TestNotification());
     }
 }
@@ -179,6 +216,8 @@ class TestNotifiableModelWithoutPhone
 
 class TestNotification extends Notification
 {
+    public $id = 'random-id';
+
     public function toBandwidth($notifiable)
     {
         return (new BandwidthMessage())
