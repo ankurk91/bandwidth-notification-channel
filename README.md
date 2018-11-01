@@ -10,6 +10,8 @@
 
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v5.6+
 
+:point_right: v1.x documentation is available on `v1.x` branch
+
 ## Package versions
 | Bandwidth API   | Branch   | Package version  |
 |-----------------|----------|----------------- |
@@ -31,12 +33,12 @@ Add the service provider in `config/app.php` file:  (optional)
 ```
 
 ## Setting up your Bandwidth account
-Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credentials in `config/services.php` file:
+Add the [Bandwidth](https://dev.bandwidth.com/security.html) service credentials in your `config/services.php` file:
 ```php
 // config/services.php
 
 'bandwidth' => [
-    'application_id' => env('BANDWIDTH_APPLICATION_ID'), 
+    'application_id' => env('BANDWIDTH_APPLICATION_ID'), // required since v2
     'user_id' => env('BANDWIDTH_USER_ID'), 
     'api_token' => env('BANDWIDTH_API_TOKEN'), 
     'api_secret' => env('BANDWIDTH_API_SECRET'), 
@@ -57,7 +59,7 @@ BANDWIDTH_SIMULATE=false
 * The  `simulate` option allows to you test the channel without sending actual SMS. When set to `true`, it will write a log with http payload.
 
 ## Usage
-Now you can use the Bandwidth channel in your `via()` method inside the notification class:
+Now you can use the Bandwidth channel in the `via()` method inside your Notification class:
 ```php
 <?php
 
@@ -128,9 +130,15 @@ class User extends Authenticatable
 * `content()`: Accepts a string value for the notification body.
 * `from()`: Accepts a phone number to use as the notification sender.
 * `media()`: Accepts a URL or array of URLs to be used a MMS.
-* `http()`: Accepts an `array` to send along with notification body.
+* `http()`: Accepts an `array` to send along with notification http payload.
 
-### Notes
+### Events
+* The package utilises Laravel's inbuilt notification [events](https://laravel.com/docs/5.7/notifications#notification-events)
+* You can listen to these events in your app
+    - `Illuminate\Notifications\Events\NotificationSent`
+    - `Illuminate\Notifications\Events\NotificationFailed`
+
+### Notes (Taken from API docs)
 * The `from` and `to` numbers must be in `E.164` format, for example `+14244443192`. 
 * Message content length must be `2048` characters or less. Messages larger than `160` characters are automatically fragmented and re-assembled to fit within the `160` character transport constraints.
 
@@ -147,8 +155,7 @@ If you discover any security related issues, please email `pro.ankurk1[at]gmail[
 
 ### Resources
 * Bandwidth [FAQ](https://dev.bandwidth.com/faq) for Developers
-* Bandwidth v1 API [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) 
-* Bandwidth v2 API [Docs](https://dev.bandwidth.com/v2-messaging/)
+* Bandwidth API v2 [Docs](https://dev.bandwidth.com/v2-messaging/)
 * Phone number validation [regex](https://stackoverflow.com/questions/6478875/regular-expression-matching-e-164-formatted-phone-numbers)
 
 ## License
