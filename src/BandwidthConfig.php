@@ -20,6 +20,16 @@ class BandwidthConfig
     }
 
     /**
+     * Get the application id.
+     *
+     * @return string
+     */
+    public function getApplicationId()
+    {
+        return $this->config['application_id'];
+    }
+
+    /**
      * Get the user id.
      *
      * @return string

@@ -59,6 +59,7 @@ class ChannelTest extends TestCase
     protected function getConfig($config = [])
     {
         return new BandwidthConfig(array_merge([
+            'application_id' => 'demo_application_id',
             'user_id' => 'user_id',
             'api_token' => 'token',
             'api_secret' => 'secret',
@@ -66,16 +67,23 @@ class ChannelTest extends TestCase
         ], $config));
     }
 
+    protected function mergeWith(array $payload)
+    {
+        return array_merge([
+            'applicationId' => $this->config->getApplicationId()
+        ], $payload);
+    }
+
     /** @test */
     public function it_can_send_a_notification()
     {
         $this->client->shouldReceive('sendMessage')
             ->once()
-            ->with([
+            ->with($this->mergeWith([
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-            ])
+            ]))
             ->andReturn(new Response());
 
         $this->channel->send(new TestNotifiableModel(), new TestNotification());
@@ -86,11 +94,11 @@ class ChannelTest extends TestCase
     {
         $this->client->shouldReceive('sendMessage')
             ->once()
-            ->with([
+            ->with($this->mergeWith([
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-            ])
+            ]))
             ->andReturn(new Response());
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithoutMessageInstance());
@@ -102,13 +110,12 @@ class ChannelTest extends TestCase
     {
         $this->client->shouldReceive('sendMessage')
             ->once()
-            ->with([
+            ->with($this->mergeWith([
                 'from' => '+1987654320',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-            ])
+            ]))
             ->andReturn(new Response());
-
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithCustomFrom());
     }
@@ -118,14 +125,13 @@ class ChannelTest extends TestCase
     {
         $this->client->shouldReceive('sendMessage')
             ->once()
-            ->with([
+            ->with($this->mergeWith([
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
                 'media' => 'http://localhost/image.png',
-            ])
+            ]))
             ->andReturn(new Response());
-
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithMedia());
     }
@@ -135,12 +141,12 @@ class ChannelTest extends TestCase
     {
         $this->client->shouldReceive('sendMessage')
             ->once()
-            ->with([
+            ->with($this->mergeWith([
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
                 'tag' => 'info'
-            ])
+            ]))
             ->andReturn(new Response());
 
 
@@ -153,12 +159,12 @@ class ChannelTest extends TestCase
         $this->events->shouldReceive("dispatch")->once();
         $this->client->shouldReceive('sendMessage')
             ->once()
-            ->with([
+            ->with($this->mergeWith([
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
                 'tag' => 'info'
-            ])
+            ]))
             ->andReturn(new Response(500))
             ->andThrow(\Exception::class);
 
@@ -181,11 +187,11 @@ class ChannelTest extends TestCase
         $this->client->shouldNotReceive('sendMessage');
         $this->logger->shouldReceive('debug')
             ->once()
-            ->with("Bandwidth Message-ID: <random-id>\n", [
+            ->with("Bandwidth Message-ID: <random-id>\n", $this->mergeWith([
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-            ]);
+            ]));
 
         $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]), $this->logger, $this->events);
         $channel->send(new TestNotifiableModel(), new TestNotification());

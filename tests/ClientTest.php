@@ -31,6 +31,7 @@ class ClientTest extends TestCase
         parent::setUp();
 
         $this->config = new BandwidthConfig([
+            'application_id' => 'demo_application_id',
             'user_id' => 'demo_user_id',
             'api_token' => 'demo_token',
             'api_secret' => 'demo_secret',
@@ -62,6 +63,7 @@ class ClientTest extends TestCase
             'to' => '+123456790',
             'from' => '+987654321',
             'text' => 'message',
+            'applicationId'=>$this->config->getApplicationId(),
         ];
 
         $this->client->sendMessage($httpBody);
