@@ -56,7 +56,8 @@ BANDWIDTH_FROM=
 BANDWIDTH_SIMULATE=false
 ```
 * The `from` option is the phone number that your messages will be sent from.
-* The  `simulate` option allows to you test the channel without sending actual SMS. When set to `true`, it will write a log with http payload.
+* The  `simulate` option allows to you test the channel without sending actual SMS. 
+When set to `true`,  messages will be written to your application's log files instead of being sent to the recipient.
 
 ## Usage
 Now you can use the Bandwidth channel in the `via()` method inside your Notification class:
