@@ -129,7 +129,7 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'media' => 'http://localhost/image.png',
+                'media' => ['http://localhost/image.png'],
             ]))
             ->andReturn(new Response());
 

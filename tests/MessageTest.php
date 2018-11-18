@@ -50,7 +50,7 @@ class MessageTest extends TestCase
     public function it_can_set_the_media()
     {
         $this->message->media('https://localhost/image.png');
-        $this->assertEquals('https://localhost/image.png', $this->message->getParameter('media'));
+        $this->assertEquals(['https://localhost/image.png'], $this->message->getParameter('media'));
     }
 
     /** @test */
