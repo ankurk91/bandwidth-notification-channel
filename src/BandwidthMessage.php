@@ -57,7 +57,7 @@ class BandwidthMessage
      */
     public function media($media)
     {
-        $this->setParameter('media', $media);
+        $this->setParameter('media', Arr::wrap($media));
 
         return $this;
     }
@@ -105,6 +105,8 @@ class BandwidthMessage
     }
 
     /**
+     * The array representation of message.
+     *
      * @return array
      */
     public function toArray()
