@@ -10,6 +10,14 @@
 
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v5.6+
 
+:point_right: v2.x documentation is available on `master` branch
+
+## Package versions
+| Bandwidth API   | Branch   | Package version  |
+|-----------------|----------|----------------- |
+| `1.0`           | `1.x`    | `1.*`            |
+| `2.0`           | `master` | `2.*`            |
+
 ## Installation
 You can install the package via composer:
 ```
@@ -25,7 +33,7 @@ Add the service provider in `config/app.php` file:  (optional)
 ```
 
 ## Setting up your Bandwidth account
-Add your [Bandwidth](https://dev.bandwidth.com/security.html) service credentials in `config/services.php` file:
+Add the [Bandwidth](https://dev.bandwidth.com/security.html) service credentials in your `config/services.php` file:
 ```php
 // config/services.php
 
@@ -122,7 +130,7 @@ class User extends Authenticatable
 * `media()`: Accepts a URL or array of URLs to be used a MMS.
 * `http()`: Accepts an `array` to send along with notification body.
 
-### Notes
+### Notes (Taken from API docs)
 * The `from` and `to` numbers must be in `E.164` format, for example `+14244443192`. 
 * Message content length must be `2048` characters or less. Messages larger than `160` characters are automatically fragmented and re-assembled to fit within the `160` character transport constraints.
 
@@ -139,7 +147,7 @@ If you discover any security related issues, please email `pro.ankurk1[at]gmail[
 
 ### Resources
 * Bandwidth [FAQ](https://dev.bandwidth.com/faq) for Developers
-* Bandwidth [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) for Developers
+* Bandwidth API v1 [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) 
 * Phone number validation [regex](https://stackoverflow.com/questions/6478875/regular-expression-matching-e-164-formatted-phone-numbers)
 
 ## License
