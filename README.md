@@ -157,6 +157,7 @@ If you discover any security related issues, please email `pro.ankurk1[at]gmail[
 ### Resources
 * Bandwidth [FAQ](https://dev.bandwidth.com/faq) for Developers
 * Bandwidth API v2 [Docs](https://dev.bandwidth.com/v2-messaging/)
+* Bandwidth API v1 [Docs](https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html) 
 * Phone number validation [regex](https://stackoverflow.com/questions/6478875/regular-expression-matching-e-164-formatted-phone-numbers)
 
 ## License

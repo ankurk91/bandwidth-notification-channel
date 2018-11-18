@@ -14,7 +14,7 @@ class CouldNotSendException extends Exception
     public static function clientError(Throwable $exception)
     {
         return new static(
-            "Failed to communicate with Bandwidth API. Reason: \n{$exception->getMessage()}",
+            $exception->getMessage(),
             $exception->getCode(),
             $exception
         );

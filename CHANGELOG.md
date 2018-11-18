@@ -1,7 +1,5 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
 ## 2.0.0
 * Upgrade Bandwidth API version to 2.0 
 * Read the documentation before upgrading
