@@ -1,3 +1,5 @@
+dist: xenial
+
 language: php
 
 # Define the php versions against we want to test our code
