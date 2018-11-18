@@ -32,6 +32,7 @@ branches:
   only:
   - master
   - dev
+  - v1.x
 
 # You can force delete the cache using travis-ci web interface
 cache:
