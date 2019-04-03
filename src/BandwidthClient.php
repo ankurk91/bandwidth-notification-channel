@@ -7,10 +7,10 @@ use GuzzleHttp\Client as GuzzleClient;
 class BandwidthClient
 {
     /**
-     * @source https://dev.bandwidth.com/ap-docs/
+     * @source https://dev.bandwidth.com/v2-messaging/
      * @var string
      */
-    const API_BASE_URL = 'https://api.catapult.inetwork.com/v2/';
+    const API_BASE_URL = 'https://messaging.bandwidth.com/api/v2/';
 
     /**
      * @var \GuzzleHttp\Client
