@@ -46,7 +46,7 @@ class ClientTest extends TestCase
         $stack->push(\GuzzleHttp\Middleware::history($this->history));
 
         $this->client = (new BandwidthClient($this->config))->withOptions([
-            'handler' => $stack
+            'handler' => $stack,
         ]);
     }
 
@@ -63,7 +63,7 @@ class ClientTest extends TestCase
             'to' => '+123456790',
             'from' => '+987654321',
             'text' => 'message',
-            'applicationId'=>$this->config->getApplicationId(),
+            'applicationId' => $this->config->getApplicationId(),
         ];
 
         $this->client->sendMessage($httpBody);

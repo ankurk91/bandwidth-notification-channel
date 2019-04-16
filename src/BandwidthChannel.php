@@ -2,11 +2,11 @@
 
 namespace NotificationChannels\Bandwidth;
 
-use Psr\Log\LoggerInterface;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Notifications\Events\NotificationFailed;
+use Illuminate\Notifications\Notification;
 use NotificationChannels\Bandwidth\Exceptions\CouldNotSendException;
+use Psr\Log\LoggerInterface;
 
 class BandwidthChannel
 {
@@ -33,17 +33,17 @@ class BandwidthChannel
     /**
      * Create a new bandwidth channel instance.
      *
-     * @param BandwidthClient $client
-     * @param BandwidthConfig $config
-     * @param LoggerInterface $logger
-     * @param Dispatcher $dispatcher
+     * @param  BandwidthClient  $client
+     * @param  BandwidthConfig  $config
+     * @param  LoggerInterface  $logger
+     * @param  Dispatcher  $dispatcher
      */
     public function __construct(
         BandwidthClient $client,
         BandwidthConfig $config,
         LoggerInterface $logger,
-        Dispatcher $dispatcher)
-    {
+        Dispatcher $dispatcher
+    ) {
         $this->client = $client;
         $this->config = $config;
         $this->logger = $logger;
@@ -53,14 +53,15 @@ class BandwidthChannel
     /**
      * Send the given notification.
      *
-     * @param  mixed $notifiable
-     * @param  \Illuminate\Notifications\Notification $notification
-     * @throws \Exception
+     * @param  mixed  $notifiable
+     * @param  \Illuminate\Notifications\Notification  $notification
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function send($notifiable, Notification $notification)
     {
-        if (! $to = $notifiable->routeNotificationFor('bandwidth', $notification)) {
+        if (!$to = $notifiable->routeNotificationFor('bandwidth', $notification)) {
             return;
         }
 
@@ -84,9 +85,10 @@ class BandwidthChannel
     /**
      * Call the API.
      *
-     * @param mixed $notifiable
-     * @param Notification $notification
-     * @param array $payload
+     * @param  mixed  $notifiable
+     * @param  Notification  $notification
+     * @param  array  $payload
+     *
      * @return mixed
      * @throws CouldNotSendException
      */
@@ -114,8 +116,9 @@ class BandwidthChannel
     /**
      * Prepare the http payload.
      *
-     * @param BandwidthMessage $message
-     * @param string $to
+     * @param  BandwidthMessage  $message
+     * @param  string  $to
+     *
      * @return array
      */
     protected function payload(BandwidthMessage $message, $to)

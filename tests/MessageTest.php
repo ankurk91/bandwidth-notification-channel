@@ -63,7 +63,7 @@ class MessageTest extends TestCase
     public function it_can_set_the_http_body()
     {
         $httpBody = [
-            'tag' => 'info'
+            'tag' => 'info',
         ];
 
         $this->message->http($httpBody);

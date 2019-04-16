@@ -14,7 +14,8 @@ class BandwidthMessage
     /**
      * Create a new message instance.
      *
-     * @param  string $content
+     * @param  string  $content
+     *
      * @return void
      */
     public function __construct($content = '')
@@ -25,7 +26,8 @@ class BandwidthMessage
     /**
      * Set the message content.
      *
-     * @param  string $content
+     * @param  string  $content
+     *
      * @return $this
      */
     public function content($content)
@@ -38,7 +40,8 @@ class BandwidthMessage
     /**
      * Set the phone number the message should be sent from.
      *
-     * @param  string $from
+     * @param  string  $from
+     *
      * @return $this
      */
     public function from($from)
@@ -52,7 +55,8 @@ class BandwidthMessage
      * Set the media url(s) for MMS messages.
      *
      * @source https://dev.bandwidth.com/faq/messaging/mediaType.html
-     * @param  string|array $media
+     * @param  string|array  $media
+     *
      * @return $this
      */
     public function media($media)
@@ -66,7 +70,8 @@ class BandwidthMessage
      * Set additional request options for the Guzzle HTTP client.
      * Note: this method can overwrite existing keys in payload.
      *
-     * @param  array $body
+     * @param  array  $body
+     *
      * @return $this
      */
     public function http(array $body)
@@ -79,8 +84,8 @@ class BandwidthMessage
     /**
      * Set parameters.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string  $key
+     * @param  mixed  $value
      *
      * @return $this
      */
@@ -94,8 +99,8 @@ class BandwidthMessage
     /**
      * Get parameters.
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  string  $key
+     * @param  mixed  $default
      *
      * @return mixed
      */

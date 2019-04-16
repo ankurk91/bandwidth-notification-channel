@@ -28,7 +28,7 @@ class BandwidthClient
     private $config;
 
     /**
-     * @param BandwidthConfig $config
+     * @param  BandwidthConfig  $config
      */
     public function __construct(BandwidthConfig $config)
     {
@@ -58,7 +58,8 @@ class BandwidthClient
     /**
      * Set Guzzle client options.
      *
-     * @param array $options
+     * @param  array  $options
+     *
      * @return $this
      */
     public function withOptions(array $options)
@@ -85,9 +86,10 @@ class BandwidthClient
     /**
      * Proxy method to guzzle request() method.
      *
-     * @param string $method
-     * @param string $url
-     * @param array $payload
+     * @param  string  $method
+     * @param  string  $url
+     * @param  array  $payload
+     *
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
     public function sendRequest($method, $url, array $payload = [])
@@ -104,8 +106,9 @@ class BandwidthClient
     /**
      * Prepare payload according to http verb.
      *
-     * @param string $method
-     * @param array $payload
+     * @param  string  $method
+     * @param  array  $payload
+     *
      * @return array
      */
     protected function buildOptionsForRequest($method, $payload)
@@ -126,7 +129,8 @@ class BandwidthClient
     /**
      * Extract query params from url.
      *
-     * @param string $url
+     * @param  string  $url
+     *
      * @return array
      */
     protected function parseQueryParams($url)
@@ -140,8 +144,9 @@ class BandwidthClient
     /**
      * Send SMS or MMS.
      *
-     * @source https://dev.bandwidth.com/ap-docs/methods/messages/postMessages.html
-     * @param array $body
+     * @source https://dev.bandwidth.com/v2-messaging/methods/createMessage.html
+     * @param  array  $body
+     *
      * @return mixed
      */
     public function sendMessage(array $body = [])

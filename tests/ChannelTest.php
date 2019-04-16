@@ -70,7 +70,7 @@ class ChannelTest extends TestCase
     protected function mergeWith(array $payload)
     {
         return array_merge([
-            'applicationId' => $this->config->getApplicationId()
+            'applicationId' => $this->config->getApplicationId(),
         ], $payload);
     }
 
@@ -145,7 +145,7 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'tag' => 'info'
+                'tag' => 'info',
             ]))
             ->andReturn(new Response());
 
@@ -163,7 +163,7 @@ class ChannelTest extends TestCase
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',
-                'tag' => 'info'
+                'tag' => 'info',
             ]))
             ->andReturn(new Response(500))
             ->andThrow(\Exception::class);
@@ -193,7 +193,8 @@ class ChannelTest extends TestCase
                 'text' => 'Test message content.',
             ]));
 
-        $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]), $this->logger, $this->events);
+        $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]), $this->logger,
+            $this->events);
         $channel->send(new TestNotifiableModel(), new TestNotification());
     }
 }
@@ -266,7 +267,7 @@ class TestNotificationWithHttp extends Notification
         return (new BandwidthMessage())
             ->content("Test message content.")
             ->http([
-                'tag' => 'info'
+                'tag' => 'info',
             ]);
     }
 }

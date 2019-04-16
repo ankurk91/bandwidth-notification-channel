@@ -12,7 +12,7 @@ class BandwidthConfig
     private $config;
 
     /**
-     * @param array $config
+     * @param  array  $config
      */
     public function __construct(array $config)
     {
