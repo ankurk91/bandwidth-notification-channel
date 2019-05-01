@@ -129,7 +129,7 @@ class User extends Authenticatable
 ### Available `BandwidthMessage` methods
 * `content()`: Accepts a string value for the notification body.
 * `from()`: Accepts a phone number to use as the notification sender.
-* `media()`: Accepts a URL or array of URLs to be used a MMS.
+* `media()`: Accepts a URL or array of URLs to be used as MMS.
 * `http()`: Accepts an `array` to send along with notification http payload.
 
 ### Events
