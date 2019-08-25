@@ -23,7 +23,7 @@ class ConfigTest extends TestCase
         'from' => '+1234567890',
     ];
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
         $this->config = new BandwidthConfig($this->params);

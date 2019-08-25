@@ -13,7 +13,7 @@ class MessageTest extends TestCase
     protected $message;
 
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
         $this->message = new BandwidthMessage();

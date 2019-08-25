@@ -26,7 +26,7 @@ class ClientTest extends TestCase
      */
     protected $history = [];
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -72,7 +72,7 @@ class ClientTest extends TestCase
         $this->assertEquals('POST', $this->history[0]['request']->getMethod());
         $this->assertSame(200, $this->history[0]['response']->getStatusCode());
 
-        $this->assertContains('messages', $this->history[0]['request']->getUri()->getPath());
+        $this->assertStringContainsStringIgnoringCase('messages', $this->history[0]['request']->getUri()->getPath());
         $this->assertEquals(json_encode($httpBody), $this->history[0]['request']->getBody());
     }
 
@@ -85,6 +85,6 @@ class ClientTest extends TestCase
         $this->assertEquals('GET', $this->history[0]['request']->getMethod());
         $this->assertSame(200, $this->history[0]['response']->getStatusCode());
 
-        $this->assertContains('errors', $this->history[0]['request']->getUri()->getPath());
+        $this->assertStringContainsStringIgnoringCase('errors', $this->history[0]['request']->getUri()->getPath());
     }
 }

@@ -44,7 +44,7 @@ class ChannelTest extends TestCase
      */
     protected $config;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
