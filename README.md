@@ -1,9 +1,9 @@
 # Bandwidth notification channel for Laravel
 
-[![Packagist](https://img.shields.io/packagist/v/ankurk91/bandwidth-notification-channel.svg)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
-[![GitHub tag](https://img.shields.io/github/tag/ankurk91/bandwidth-notification-channel.svg)](https://github.com/ankurk91/bandwidth-notification-channel/releases)
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.txt)
-[![Downloads](https://img.shields.io/packagist/dt/ankurk91/bandwidth-notification-channel.svg)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel/stats)
+[![Packagist](https://badgen.net/packagist/v/ankurk91/bandwidth-notification-channel)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
+[![GitHub tag](https://badgen.net/github/tag/ankurk91/bandwidth-notification-channel)](https://github.com/ankurk91/bandwidth-notification-channel/releases)
+[![License](https://badgen.net/packagist/license/ankurk91/bandwidth-notification-channel)](LICENSE.txt)
+[![Downloads](https://badgen.net/packagist/dt/ankurk91/bandwidth-notification-channel)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel/stats)
 [![Build Status](https://travis-ci.com/ankurk91/bandwidth-notification-channel.svg)](https://travis-ci.com/ankurk91/bandwidth-notification-channel)
 [![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
