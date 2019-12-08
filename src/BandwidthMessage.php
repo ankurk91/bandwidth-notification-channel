@@ -32,9 +32,7 @@ class BandwidthMessage
      */
     public function content($content)
     {
-        $this->setParameter('text', $content);
-
-        return $this;
+        return $this->setParameter('text', $content);
     }
 
     /**
@@ -46,9 +44,7 @@ class BandwidthMessage
      */
     public function from($from)
     {
-        $this->setParameter('from', $from);
-
-        return $this;
+        return $this->setParameter('from', $from);
     }
 
     /**
@@ -61,9 +57,7 @@ class BandwidthMessage
      */
     public function media($media)
     {
-        $this->setParameter('media', Arr::wrap($media));
-
-        return $this;
+        return $this->setParameter('media', Arr::wrap($media));
     }
 
     /**

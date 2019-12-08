@@ -7,7 +7,7 @@ use GuzzleHttp\Client as GuzzleClient;
 class BandwidthClient
 {
     /**
-     * @source https://dev.bandwidth.com/v2-messaging/
+     * @source https://dev.bandwidth.com/messaging/about.html
      * @var string
      */
     const API_BASE_URL = 'https://messaging.bandwidth.com/api/v2/';
@@ -144,7 +144,7 @@ class BandwidthClient
     /**
      * Send SMS or MMS.
      *
-     * @source https://dev.bandwidth.com/v2-messaging/methods/createMessage.html
+     * @source https://dev.bandwidth.com/messaging/methods/messages/createMessage.html
      * @param  array  $body
      *
      * @return mixed

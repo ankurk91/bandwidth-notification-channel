@@ -133,7 +133,7 @@ class User extends Authenticatable
 * `http()`: Accepts an `array` to send along with notification http payload.
 
 ### Events
-* The package utilises Laravel's inbuilt notification [events](https://laravel.com/docs/5.7/notifications#notification-events)
+* The package utilises Laravel's inbuilt notification [events](https://laravel.com/docs/6.x/notifications#notification-events)
 * You can listen to these events in your app
     - `Illuminate\Notifications\Events\NotificationSent`
     - `Illuminate\Notifications\Events\NotificationFailed`
