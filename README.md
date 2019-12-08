@@ -7,20 +7,12 @@
 [![Build Status](https://travis-ci.com/ankurk91/bandwidth-notification-channel.svg)](https://travis-ci.com/ankurk91/bandwidth-notification-channel)
 [![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
-This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v5.6+
-
-:point_right: v1.x documentation is available on `v1.x` branch
-
-## Package versions
-| Bandwidth API   | Branch   | Package version  |
-|-----------------|----------|----------------- |
-| `1.0`           | `1.x`    | `1.*`            |
-| `2.0`           | `master` | `2.*`            |
+This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v6.0+
 
 ## Installation
 You can install the package via composer:
 ```
-composer require ankurk91/bandwidth-notification-channel:2.*
+composer require ankurk91/bandwidth-notification-channel
 ```
 Add the service provider in `config/app.php` file:  (optional)
 ```php
