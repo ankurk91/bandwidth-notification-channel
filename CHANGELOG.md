@@ -3,6 +3,7 @@
 ## 3.0.0
 * Requires Laravel v6.x+
 * Test against php v7.4
+* :warning: Rename config option `simulate` to `dry_run`
 
 ## 2.1.0
 * Changed the API base URL to `https://messaging.bandwidth.com/api/v2`, according to [docs](https://dev.bandwidth.com/v2-messaging/) 

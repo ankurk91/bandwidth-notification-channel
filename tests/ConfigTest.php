@@ -71,16 +71,16 @@ class ConfigTest extends TestCase
     /** @test */
     public function it_returns_the_simulate_default_value_false()
     {
-        $this->assertFalse($this->config->simulate());
+        $this->assertFalse($this->config->dryRun());
     }
 
     /** @test */
-    public function it_returns_the_simulate_value_when_set()
+    public function it_returns_the_dry_run_value_when_set()
     {
         $config = new BandwidthConfig([
-            'simulate' => true,
+            'dry_run' => true,
         ]);
-        $this->assertTrue($config->simulate());
+        $this->assertTrue($config->dryRun());
     }
 
     /** @test */

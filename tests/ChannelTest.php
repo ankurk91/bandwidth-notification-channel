@@ -193,7 +193,7 @@ class ChannelTest extends TestCase
                 'text' => 'Test message content.',
             ]));
 
-        $channel = new BandwidthChannel($this->client, $this->getConfig(['simulate' => true]), $this->logger,
+        $channel = new BandwidthChannel($this->client, $this->getConfig(['dry_run' => true]), $this->logger,
             $this->events);
         $channel->send(new TestNotifiableModel(), new TestNotification());
     }

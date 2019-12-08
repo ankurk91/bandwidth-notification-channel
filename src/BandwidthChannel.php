@@ -73,7 +73,7 @@ class BandwidthChannel
 
         $payload = $this->payload($message, $to);
 
-        if ($this->config->simulate()) {
+        if ($this->config->dryRun()) {
             $this->logger->debug("Bandwidth Message-ID: <{$notification->id}>\n", $payload);
 
             return $payload;

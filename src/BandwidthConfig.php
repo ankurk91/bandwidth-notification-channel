@@ -85,8 +85,8 @@ class BandwidthConfig
      *
      * @return bool
      */
-    public function simulate()
+    public function dryRun()
     {
-        return Arr::get($this->config, 'simulate', false);
+        return Arr::get($this->config, 'dry_run', false);
     }
 }

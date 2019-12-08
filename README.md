@@ -34,7 +34,7 @@ Add the [Bandwidth](https://dev.bandwidth.com/security.html) service credentials
     'api_token' => env('BANDWIDTH_API_TOKEN'), 
     'api_secret' => env('BANDWIDTH_API_SECRET'), 
     'from' => env('BANDWIDTH_FROM'), 
-    'simulate' => env('BANDWIDTH_SIMULATE'), 
+    'dry_run' => env('BANDWIDTH_DRY_RUN'), 
 ],
 ```
 Also update your `.env.example` and `.env` files:
@@ -44,11 +44,11 @@ BANDWIDTH_USER_ID=
 BANDWIDTH_API_TOKEN=
 BANDWIDTH_API_SECRET=
 BANDWIDTH_FROM=
-BANDWIDTH_SIMULATE=false
+BANDWIDTH_DRY_RUN=false
 ```
 * The `from` option is the phone number that your messages will be sent from.
-* The  `simulate` option allows to you test the channel without sending actual SMS. 
-When set to `true`,  messages will be written to your application's log files instead of being sent to the recipient.
+* The `dry_run` option allows to you test the channel without sending actual SMS. 
+When `dry_run` is set to `true`,  messages will be written to your application's log files instead of being sent to the recipient.
 
 ## Usage
 Now you can use the Bandwidth channel in the `via()` method inside your Notification class:
