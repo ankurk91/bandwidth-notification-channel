@@ -2,9 +2,10 @@
 
 namespace NotificationChannels\Bandwidth;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
-class BandwidthConfig
+class BandwidthConfig implements Arrayable
 {
     /**
      * @var array
@@ -75,7 +76,7 @@ class BandwidthConfig
      *
      * @return bool
      */
-    public function debugHttp()
+    public function debugHttp(): bool
     {
         return Arr::get($this->config, 'debug_http', false);
     }
@@ -85,8 +86,18 @@ class BandwidthConfig
      *
      * @return bool
      */
-    public function dryRun()
+    public function dryRun(): bool
     {
         return Arr::get($this->config, 'dry_run', false);
+    }
+
+    /**
+     * Get whole config as array.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->config;
     }
 }

@@ -111,7 +111,7 @@ class BandwidthClient
      *
      * @return array
      */
-    protected function buildOptionsForRequest($method, $payload)
+    protected function buildOptionsForRequest($method, array $payload): array
     {
         $options = [];
         switch (strtolower($method)) {
@@ -133,7 +133,7 @@ class BandwidthClient
      *
      * @return array
      */
-    protected function parseQueryParams($url)
+    protected function parseQueryParams(string $url): array
     {
         $query = [];
         parse_str(parse_url($url, PHP_URL_QUERY), $query);

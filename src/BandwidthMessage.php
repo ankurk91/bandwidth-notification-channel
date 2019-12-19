@@ -2,9 +2,10 @@
 
 namespace NotificationChannels\Bandwidth;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
-class BandwidthMessage
+class BandwidthMessage implements Arrayable
 {
     /**
      * @var array
@@ -108,7 +109,7 @@ class BandwidthMessage
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->payload;
     }
