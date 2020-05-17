@@ -4,7 +4,7 @@
 [![GitHub tag](https://badgen.net/github/tag/ankurk91/bandwidth-notification-channel)](https://github.com/ankurk91/bandwidth-notification-channel/releases)
 [![License](https://badgen.net/packagist/license/ankurk91/bandwidth-notification-channel)](LICENSE.txt)
 [![Downloads](https://badgen.net/packagist/dt/ankurk91/bandwidth-notification-channel)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel/stats)
-![tests](https://github.com/ankurk91/bandwidth-notification-channel/workflows/tests/badge.svg)
+[![tests](https://github.com/ankurk91/bandwidth-notification-channel/workflows/tests/badge.svg)](https://github.com/ankurk91/bandwidth-notification-channel/actions)
 [![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v6.0+
@@ -16,6 +16,7 @@ composer require ankurk91/bandwidth-notification-channel
 ```
 Add the service provider in `config/app.php` file:  (optional)
 ```php
+<?php
 // config/app.php
 'providers' => [
     //...
@@ -24,8 +25,9 @@ Add the service provider in `config/app.php` file:  (optional)
 ```
 
 ## Setting up your Bandwidth account
-Add the [Bandwidth](https://dev.bandwidth.com/security.html) service credentials in your `config/services.php` file:
+Add the [Bandwidth](https://dev.bandwidth.com/guides/accountCredentials.html) service credentials in your `config/services.php` file:
 ```php
+<?php
 // config/services.php
 
 'bandwidth' => [
@@ -37,7 +39,7 @@ Add the [Bandwidth](https://dev.bandwidth.com/security.html) service credentials
     'dry_run' => env('BANDWIDTH_DRY_RUN'), 
 ],
 ```
-Also update your `.env.example` and `.env` files:
+Also, update your `.env.example` and `.env` files:
 ```
 BANDWIDTH_APPLICATION_ID=
 BANDWIDTH_USER_ID=
@@ -63,7 +65,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthMessage;
 
-class AccountApproved extends Notification
+class AccountApproved extends Notification implements ShouldQueue
 {
     use Queueable;
     
@@ -125,14 +127,15 @@ class User extends Authenticatable
 * `http()`: Accepts an `array` to send along with notification http payload.
 
 ### Events
-* The package utilises Laravel's inbuilt notification [events](https://laravel.com/docs/6.x/notifications#notification-events)
+* The package utilises Laravel's inbuilt notification [events](https://laravel.com/docs/7.x/notifications#notification-events)
 * You can listen to these events in your app
     - `Illuminate\Notifications\Events\NotificationSent`
     - `Illuminate\Notifications\Events\NotificationFailed`
 
 ### Notes (Taken from API docs)
 * The `from` and `to` numbers must be in `E.164` format, for example `+14244443192`. 
-* Message content length must be `2048` characters or less. Messages larger than `160` characters are automatically fragmented and re-assembled to fit within the `160` character transport constraints.
+* Message content length must be `2048` characters or less. Messages larger than `160` characters are automatically fragmented and
+ re-assembled to fit within the `160` character transport constraints.
 
 ## Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
