@@ -20,7 +20,7 @@
   "require": {
     "php": "^7.2",
     "ext-json": "*",
-    "guzzlehttp/guzzle": "^6.3",
+    "guzzlehttp/guzzle": "^6.3||^7.0",
     "illuminate/log": "^6.0||^7.0",
     "illuminate/notifications": "^6.0||^7.0",
     "illuminate/support": "^6.0||^7.0"
@@ -44,7 +44,7 @@
     "preferred-install": "dist"
   },
   "scripts": {
-    "test": "vendor/bin/phpunit"
+    "test": "vendor/bin/phpunit --testdox --color=always"
   },
   "extra": {
     "laravel": {
