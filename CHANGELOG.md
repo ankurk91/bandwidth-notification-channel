@@ -7,7 +7,7 @@
 
 ## 2.1.0
 * Changed the API base URL to `https://messaging.bandwidth.com/api/v2`, according to [docs](https://dev.bandwidth.com/v2-messaging/) 
-the old URL will be deprecated June 13th, 2019. Please update your system to use the new URL as soon as possible. 
+the old URL will be deprecated after June 13th, 2019. Please update your apps to use the new URL as soon as possible. 
 
 ## 2.0.0
 * Upgrade Bandwidth API version to 2.0 
