@@ -2,13 +2,13 @@
 
 namespace NotificationChannels\Bandwidth\Test;
 
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Http\Client\Factory as HttpClient;
+use Illuminate\Http\Client\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Mockery;
 use NotificationChannels\Bandwidth\BandwidthChannel;
-use NotificationChannels\Bandwidth\BandwidthClient;
 use NotificationChannels\Bandwidth\BandwidthConfig;
 use NotificationChannels\Bandwidth\BandwidthMessage;
 use NotificationChannels\Bandwidth\Exceptions\CouldNotSendException;
@@ -20,7 +20,7 @@ class ChannelTest extends TestCase
     use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
     /**
-     * @var BandwidthClient
+     * @var HttpClient
      */
     protected $client;
 
@@ -44,13 +44,12 @@ class ChannelTest extends TestCase
      */
     protected $config;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->config = $this->getConfig();
-
-        $this->client = Mockery::mock(BandwidthClient::class, [$this->config]);
+        $this->client = new HttpClient();
         $this->logger = Mockery::mock(LoggerInterface::class);
         $this->events = Mockery::mock(Dispatcher::class);
         $this->channel = new BandwidthChannel($this->client, $this->config, $this->logger, $this->events);
@@ -77,96 +76,79 @@ class ChannelTest extends TestCase
     /** @test */
     public function it_can_send_a_notification()
     {
-        $this->client->shouldReceive('sendMessage')
-            ->once()
-            ->with($this->mergeWith([
-                'from' => '+1234567890',
-                'to' => '+1234567890',
-                'text' => 'Test message content.',
-            ]))
-            ->andReturn(new Response());
+        $this->client->fake([
+            '*' => $this->client
+                ->response(['id' => 123], 200),
+        ]);
 
-        $this->channel->send(new TestNotifiableModel(), new TestNotification());
+        $response = $this->channel->send(new TestNotifiableModel(), new TestNotification());
+        $this->assertSame(123, $response['id']);
+
+        $this->client->assertSent(function (Request $request) {
+            return $request->isJson() &&
+                $request->hasHeader('Content-Type', 'application/json') &&
+                $request->offsetExists('applicationId');
+        });
+        $this->client->assertSentCount(1);
     }
 
     /** @test */
     public function it_can_send_a_notification_without_message_instance()
     {
-        $this->client->shouldReceive('sendMessage')
-            ->once()
-            ->with($this->mergeWith([
-                'from' => '+1234567890',
-                'to' => '+1234567890',
-                'text' => 'Test message content.',
-            ]))
-            ->andReturn(new Response());
+        $this->client->fake();
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithoutMessageInstance());
+
+        $this->client->assertSent(function (Request $request) {
+            return $request->offsetExists('text');
+        });
     }
 
 
     /** @test */
     public function it_can_send_a_notification_from_custom_number()
     {
-        $this->client->shouldReceive('sendMessage')
-            ->once()
-            ->with($this->mergeWith([
-                'from' => '+1987654320',
-                'to' => '+1234567890',
-                'text' => 'Test message content.',
-            ]))
-            ->andReturn(new Response());
+        $this->client->fake();
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithCustomFrom());
+
+        $this->client->assertSent(function (Request $request) {
+            return $request->offsetGet('from') === '+1987654320';
+        });
     }
 
     /** @test */
     public function it_can_send_a_notification_with_media()
     {
-        $this->client->shouldReceive('sendMessage')
-            ->once()
-            ->with($this->mergeWith([
-                'from' => '+1234567890',
-                'to' => '+1234567890',
-                'text' => 'Test message content.',
-                'media' => ['http://localhost/image.png'],
-            ]))
-            ->andReturn(new Response());
+        $this->client->fake();
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithMedia());
+        $this->client->assertSent(function (Request $request) {
+            return $request->offsetExists('media');
+        });
     }
 
     /** @test */
     public function it_can_send_a_notification_with_http_body()
     {
-        $this->client->shouldReceive('sendMessage')
-            ->once()
-            ->with($this->mergeWith([
-                'from' => '+1234567890',
-                'to' => '+1234567890',
-                'text' => 'Test message content.',
-                'tag' => 'info',
-            ]))
-            ->andReturn(new Response());
-
-
+        $this->client->fake();
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttp());
+
+        $this->client->assertSent(function (Request $request) {
+            return $request->offsetExists('tag');
+        });
     }
+
 
     /** @test */
     public function it_should_throw_exception_on_failure()
     {
         $this->events->shouldReceive("dispatch")->once();
-        $this->client->shouldReceive('sendMessage')
-            ->once()
-            ->with($this->mergeWith([
-                'from' => '+1234567890',
-                'to' => '+1234567890',
-                'text' => 'Test message content.',
-                'tag' => 'info',
-            ]))
-            ->andReturn(new Response(500))
-            ->andThrow(\Exception::class);
+
+        $this->client->fake([
+            '*' => $this->client
+                ->response('Error', 500),
+        ]);
 
         $this->expectException(CouldNotSendException::class);
 
@@ -176,15 +158,18 @@ class ChannelTest extends TestCase
     /** @test */
     public function it_can_not_send_notification_when_notifiable_does_not_have_a_phone()
     {
-        $this->client->shouldNotReceive('sendMessage');
+        $this->client->fake();
 
         $this->channel->send(new TestNotifiableModelWithoutPhone(), new TestNotification());
+
+        $this->client->assertNothingSent();
     }
 
     /** @test */
     public function it_can_not_send_notification_in_simulation()
     {
-        $this->client->shouldNotReceive('sendMessage');
+        $this->client->fake();
+
         $this->logger->shouldReceive('debug')
             ->once()
             ->with("Bandwidth Message-ID: <random-id>\n", $this->mergeWith([
@@ -195,7 +180,9 @@ class ChannelTest extends TestCase
 
         $channel = new BandwidthChannel($this->client, $this->getConfig(['dry_run' => true]), $this->logger,
             $this->events);
+
         $channel->send(new TestNotifiableModel(), new TestNotification());
+        $this->client->assertNothingSent();
     }
 }
 

@@ -7,11 +7,18 @@ use Illuminate\Notifications\Events\NotificationFailed;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Bandwidth\Exceptions\CouldNotSendException;
 use Psr\Log\LoggerInterface;
+use Illuminate\Http\Client\Factory as HttpClient;
 
 class BandwidthChannel
 {
     /**
-     * @var BandwidthClient
+     * @source https://dev.bandwidth.com/messaging/about.html
+     * @var string
+     */
+    public const API_BASE_URL = 'https://messaging.bandwidth.com/api/v2/';
+
+    /**
+     * @var HttpClient|\Illuminate\Support\Facades\Http
      */
     protected $client;
 
@@ -21,7 +28,7 @@ class BandwidthChannel
     protected $config;
 
     /**
-     * @var LoggerInterface
+     * @var LoggerInterface|\Illuminate\Support\Facades\Log
      */
     protected $logger;
 
@@ -33,13 +40,13 @@ class BandwidthChannel
     /**
      * Create a new bandwidth channel instance.
      *
-     * @param  BandwidthClient  $client
+     * @param  HttpClient  $client
      * @param  BandwidthConfig  $config
      * @param  LoggerInterface  $logger
      * @param  Dispatcher  $dispatcher
      */
     public function __construct(
-        BandwidthClient $client,
+        HttpClient $client,
         BandwidthConfig $config,
         LoggerInterface $logger,
         Dispatcher $dispatcher
@@ -95,9 +102,17 @@ class BandwidthChannel
     protected function sendMessage($notifiable, Notification $notification, array $payload)
     {
         try {
-            $response = $this->client->sendMessage($payload);
-
-            return \json_decode($response->getBody(), true);
+            return $this->client
+                ->withBasicAuth($this->config->getApiToken(), $this->config->getApiSecret())
+                ->withOptions([
+                    'debug' => $this->config->debugHttp(),
+                ])
+                ->acceptJson()
+                ->timeout(15)
+                ->retry(3, 1000)
+                ->post($this->getPostUrl(), $payload)
+                ->throw()
+                ->json();
         } catch (\Throwable $exception) {
             $this->events->dispatch(new NotificationFailed(
                 $notifiable,
@@ -113,6 +128,11 @@ class BandwidthChannel
         }
     }
 
+    protected function getPostUrl(): string
+    {
+        return self::API_BASE_URL."users/{$this->config->getUserId()}/messages";
+    }
+
     /**
      * Prepare the http payload.
      *
@@ -121,7 +141,7 @@ class BandwidthChannel
      *
      * @return array
      */
-    protected function payload(BandwidthMessage $message, $to)
+    protected function payload(BandwidthMessage $message, $to): array
     {
         return array_merge([
             'from' => $this->config->getFrom(),

@@ -7,31 +7,22 @@
 [![tests](https://github.com/ankurk91/bandwidth-notification-channel/workflows/tests/badge.svg)](https://github.com/ankurk91/bandwidth-notification-channel/actions)
 [![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
-This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v6.0+
+This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v7.0+
 
 ## Installation
 You can install the package via composer:
 ```
 composer require ankurk91/bandwidth-notification-channel
 ```
-Add the service provider in `config/app.php` file:  (optional)
-```php
-<?php
-// config/app.php
-'providers' => [
-    //...
-    NotificationChannels\Bandwidth\BandwidthServiceProvider::class,
-],
-```
+Package will auto register the service provider.
 
 ## Setting up your Bandwidth account
 Add the [Bandwidth](https://dev.bandwidth.com/guides/accountCredentials.html) service credentials in your `config/services.php` file:
 ```php
 <?php
-// config/services.php
 
 'bandwidth' => [
-    'application_id' => env('BANDWIDTH_APPLICATION_ID'), // required since v2
+    'application_id' => env('BANDWIDTH_APPLICATION_ID'), 
     'user_id' => env('BANDWIDTH_USER_ID'), 
     'api_token' => env('BANDWIDTH_API_TOKEN'), 
     'api_secret' => env('BANDWIDTH_API_SECRET'), 
@@ -120,7 +111,7 @@ class User extends Authenticatable
 }
 ```
 
-### Available `BandwidthMessage` methods
+### Methods available on `BandwidthMessage` class
 * `content()`: Accepts a string value for the notification body.
 * `from()`: Accepts a phone number to use as the notification sender.
 * `media()`: Accepts a URL or array of URLs to be used as MMS.

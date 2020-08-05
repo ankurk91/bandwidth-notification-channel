@@ -40,6 +40,6 @@ class BandwidthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(BandwidthClient::class);
+        //
     }
 }
