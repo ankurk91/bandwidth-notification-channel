@@ -104,7 +104,6 @@ class ChannelTest extends TestCase
         });
     }
 
-
     /** @test */
     public function it_can_send_a_notification_from_custom_number()
     {
@@ -132,7 +131,7 @@ class ChannelTest extends TestCase
     public function it_can_send_a_notification_with_http_body()
     {
         $this->client->fake();
-        $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttp());
+        $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttpBody());
 
         $this->client->assertSent(function (Request $request) {
             return $request->offsetExists('tag');
@@ -152,7 +151,7 @@ class ChannelTest extends TestCase
 
         $this->expectException(CouldNotSendException::class);
 
-        $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttp());
+        $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttpBody());
     }
 
     /** @test */
@@ -178,8 +177,12 @@ class ChannelTest extends TestCase
                 'text' => 'Test message content.',
             ]));
 
-        $channel = new BandwidthChannel($this->client, $this->getConfig(['dry_run' => true]), $this->logger,
-            $this->events);
+        $channel = new BandwidthChannel(
+            $this->client,
+            $this->getConfig(['dry_run' => true]),
+            $this->logger,
+            $this->events
+        );
 
         $channel->send(new TestNotifiableModel(), new TestNotification());
         $this->client->assertNothingSent();
@@ -247,7 +250,7 @@ class TestNotificationWithMedia extends Notification
     }
 }
 
-class TestNotificationWithHttp extends Notification
+class TestNotificationWithHttpBody extends Notification
 {
     public function toBandwidth($notifiable)
     {

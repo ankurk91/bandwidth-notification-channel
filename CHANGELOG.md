@@ -1,9 +1,9 @@
 # Changelog
 
-## 4.0.0
+## [4.0.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/3.0.1..4.0.0)
 * Requires Laravel v7.7+
 * Requires php v7.3+
-* `BandwidthClient` class has been remove in favor of Laravel inbuilt [HTTP client](https://laravel.com/docs/7.x/http-client)
+* `BandwidthClient` class has been removed in favor of Laravel inbuilt [HTTP client](https://laravel.com/docs/7.x/http-client)
 
 ## 3.0.0
 * Requires Laravel v6.x+
