@@ -141,7 +141,7 @@ class BandwidthChannel
      *
      * @return array
      */
-    protected function payload(BandwidthMessage $message, $to): array
+    protected function payload(BandwidthMessage $message, string $to): array
     {
         return array_merge([
             'from' => $this->config->getFrom(),

@@ -25,13 +25,25 @@ class BandwidthMessage implements Arrayable
     }
 
     /**
+     * Create a new message instance.
+     *
+     * @param  string  $content
+     *
+     * @return BandwidthMessage
+     */
+    public static function create($content = '')
+    {
+        return new self($content);
+    }
+
+    /**
      * Set the message content.
      *
      * @param  string  $content
      *
      * @return $this
      */
-    public function content($content)
+    public function content(string $content)
     {
         return $this->setParameter('text', $content);
     }
@@ -43,7 +55,7 @@ class BandwidthMessage implements Arrayable
      *
      * @return $this
      */
-    public function from($from)
+    public function from(string $from)
     {
         return $this->setParameter('from', $from);
     }
