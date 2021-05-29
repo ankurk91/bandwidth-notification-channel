@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/4.0.3..5.0.0)
+* Requires php v7.4+
+* :warning: Environment variable names has been changed
+* Remove retry from http client, your queue worker should handle this
+* Report exceptions with full api response body
+* Exception class names has been changed
+
 ## [4.0.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/3.0.1..4.0.0)
 
 * Requires Laravel v7.7+
