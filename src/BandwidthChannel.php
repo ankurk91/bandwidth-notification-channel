@@ -103,7 +103,7 @@ class BandwidthChannel
     {
         try {
             return $this->client
-                ->withBasicAuth($this->config->getApiToken(), $this->config->getApiSecret())
+                ->withBasicAuth($this->config->getApiUsername(), $this->config->getApiPassword())
                 ->withOptions([
                     'debug' => $this->config->debugHttp(),
                 ])
@@ -130,7 +130,7 @@ class BandwidthChannel
 
     protected function getPostUrl(): string
     {
-        return self::API_BASE_URL."users/{$this->config->getUserId()}/messages";
+        return self::API_BASE_URL."users/{$this->config->getAccountId()}/messages";
     }
 
     /**

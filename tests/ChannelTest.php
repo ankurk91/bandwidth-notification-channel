@@ -59,9 +59,9 @@ class ChannelTest extends TestCase
     {
         return new BandwidthConfig(array_merge([
             'application_id' => 'demo_application_id',
-            'user_id' => 'user_id',
-            'api_token' => 'token',
-            'api_secret' => 'secret',
+            'account_id' => 'demo_account_id',
+            'api_username' => 'demo_user',
+            'api_password' => 'demo_password',
             'from' => '+1234567890',
         ], $config));
     }

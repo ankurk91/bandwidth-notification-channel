@@ -31,33 +31,33 @@ class BandwidthConfig implements Arrayable
     }
 
     /**
-     * Get the user id.
+     * Get the unique account id.
      *
      * @return string
      */
-    public function getUserId()
+    public function getAccountId()
     {
-        return $this->config['user_id'];
+        return $this->config['account_id'];
     }
 
     /**
-     * Get the token.
+     * Get the user's username.
      *
      * @return string
      */
-    public function getApiToken()
+    public function getApiUsername()
     {
-        return $this->config['api_token'];
+        return $this->config['api_username'];
     }
 
     /**
-     * Get the secret.
+     * Get the user's password.
      *
      * @return string
      */
-    public function getApiSecret()
+    public function getApiPassword()
     {
-        return $this->config['api_secret'];
+        return $this->config['api_password'];
     }
 
     /**

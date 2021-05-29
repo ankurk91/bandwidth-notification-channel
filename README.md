@@ -7,44 +7,58 @@
 [![tests](https://github.com/ankurk91/bandwidth-notification-channel/workflows/tests/badge.svg)](https://github.com/ankurk91/bandwidth-notification-channel/actions)
 [![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
-This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel v7.0+
+This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with
+Laravel v7.0+
 
 ## Installation
+
 You can install the package via composer:
+
 ```
 composer require ankurk91/bandwidth-notification-channel
 ```
+
 Package will auto register the service provider.
 
 ## Setting up your Bandwidth account
-Add the [Bandwidth](https://dev.bandwidth.com/guides/accountCredentials.html) service credentials in your `config/services.php` file:
+
+Add the [Bandwidth](https://dev.bandwidth.com/guides/accountCredentials.html) service credentials in
+your `config/services.php` file:
+
 ```php
 <?php
 
-'bandwidth' => [
-    'application_id' => env('BANDWIDTH_APPLICATION_ID'), 
-    'user_id' => env('BANDWIDTH_USER_ID'), 
-    'api_token' => env('BANDWIDTH_API_TOKEN'), 
-    'api_secret' => env('BANDWIDTH_API_SECRET'), 
-    'from' => env('BANDWIDTH_FROM'), 
-    'dry_run' => env('BANDWIDTH_DRY_RUN'), 
-],
+return [
+    'bandwidth' => [
+        'application_id' => env('BANDWIDTH_APPLICATION_ID'), 
+        'account_id' => env('BANDWIDTH_ACCOUNT_ID'), 
+        'api_username' => env('BANDWIDTH_API_USERNAME'), 
+        'api_password' => env('BANDWIDTH_API_PASSWORD'), 
+        'from' => env('BANDWIDTH_FROM'), 
+        'dry_run' => env('BANDWIDTH_DRY_RUN'), 
+    ],
+];
 ```
+
 Also, update your `.env.example` and `.env` files:
+
 ```
 BANDWIDTH_APPLICATION_ID=
-BANDWIDTH_USER_ID=
-BANDWIDTH_API_TOKEN=
-BANDWIDTH_API_SECRET=
+BANDWIDTH_ACCOUNT_ID=
+BANDWIDTH_API_USERNAME=
+BANDWIDTH_API_PASSWORD=
 BANDWIDTH_FROM=
 BANDWIDTH_DRY_RUN=false
 ```
+
 * The `from` option is the phone number that your messages will be sent from.
-* The `dry_run` option allows to you test the channel without sending actual SMS. 
-When `dry_run` is set to `true`,  messages will be written to your application's log files instead of being sent to the recipient.
+* The `dry_run` option allows to you test the channel without sending actual SMS. When `dry_run` is set to `true`,
+  messages will be written to your application's log files instead of being sent to the recipient.
 
 ## Usage
+
 Now you can use the Bandwidth channel in the `via()` method inside your Notification class:
+
 ```php
 <?php
 
@@ -59,24 +73,12 @@ use NotificationChannels\Bandwidth\BandwidthMessage;
 class AccountApproved extends Notification implements ShouldQueue
 {
     use Queueable;
-    
-    /**
-     * Get the notification channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array|string
-     */
+      
     public function via($notifiable)
     {
         return [BandwidthChannel::class];
     }
-
-    /**
-     * Get the text representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return BandwidthMessage|string
-     */
+  
     public function toBandwidth($notifiable)
     {
         return BandwidthMessage::create()
@@ -86,6 +88,7 @@ class AccountApproved extends Notification implements ShouldQueue
 ```
 
 Add the `routeNotificationForBandwidth` method to your Notifiable model:
+
 ```php
 <?php
 
@@ -97,13 +100,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-    
-    /**
-     * Route notifications for the bandwidth channel.
-     *
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @return array|string|boolean
-     */
+      
     public function routeNotificationForBandwidth($notification)
     {
         return $this->phone_number;
@@ -112,36 +109,47 @@ class User extends Authenticatable
 ```
 
 ### Methods available on `BandwidthMessage` class
+
 * `content()`: Accepts a string value for the notification body.
 * `from()`: Accepts a phone number to use as the notification sender.
 * `media()`: Accepts a URL or array of URLs to be used as MMS.
 * `http()`: Accepts an `array` to send along with notification http payload.
 
 ### Events
-* The package utilises Laravel's inbuilt notification [events](https://laravel.com/docs/7.x/notifications#notification-events)
+
+* The package utilises Laravel's inbuilt
+  notification [events](https://laravel.com/docs/8.x/notifications#notification-events)
 * You can listen to these events in your app
     - `Illuminate\Notifications\Events\NotificationSent`
     - `Illuminate\Notifications\Events\NotificationFailed`
 
 ### Notes (Taken from API docs)
-* The `from` and `to` numbers must be in `E.164` format, for example `+14244443192`. 
-* Message content length must be `2048` characters or less. Messages larger than `160` characters are automatically fragmented and
- re-assembled to fit within the `160` character transport constraints.
+
+* The `from` and `to` numbers must be in `E.164` format, for example `+14244443192`.
+* Message content length must be `2048` characters or less. Messages larger than `160` characters are automatically
+  fragmented and re-assembled to fit within the `160` character transport constraints.
 
 ## Changelog
+
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 ## Testing
+
 ```
 composer test
 ```
 
 ## Security
-If you discover any security related issues, please email `pro.ankurk1[at]gmail[dot]com` instead of using the issue tracker.
+
+If you discover any security related issues, please email `pro.ankurk1[at]gmail[dot]com` instead of using the issue
+tracker.
 
 ### Resources
+
 * Bandwidth API v2 [Docs](https://dev.bandwidth.com/messaging/about.html)
-* Phone number validation [regex](https://stackoverflow.com/questions/6478875/regular-expression-matching-e-164-formatted-phone-numbers)
+* Phone number
+  validation [regex](https://stackoverflow.com/questions/6478875/regular-expression-matching-e-164-formatted-phone-numbers)
 
 ## License
+
 The [MIT](https://opensource.org/licenses/MIT) License.

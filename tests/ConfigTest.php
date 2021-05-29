@@ -17,9 +17,9 @@ class ConfigTest extends TestCase
      */
     protected $params = [
         'application_id' => 'demo_application_id',
-        'user_id' => 'demo_user_id',
-        'api_token' => 'demo_token',
-        'api_secret' => 'demo_secret',
+        'account_id' => 'demo_account_id',
+        'api_username' => 'demo_user',
+        'api_password' => 'demo_password',
         'from' => '+1234567890',
     ];
 
@@ -38,19 +38,19 @@ class ConfigTest extends TestCase
     /** @test */
     public function it_returns_the_user_id()
     {
-        $this->assertEquals($this->params['user_id'], $this->config->getUserId());
+        $this->assertEquals($this->params['account_id'], $this->config->getAccountId());
     }
 
     /** @test */
     public function it_returns_the_api_token()
     {
-        $this->assertEquals($this->params['api_token'], $this->config->getApiToken());
+        $this->assertEquals($this->params['api_username'], $this->config->getApiUsername());
     }
 
     /** @test */
     public function it_returns_the_api_secret()
     {
-        $this->assertEquals($this->params['api_secret'], $this->config->getApiSecret());
+        $this->assertEquals($this->params['api_password'], $this->config->getApiPassword());
     }
 
     /** @test */
