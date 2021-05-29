@@ -11,7 +11,8 @@ use Mockery;
 use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthConfig;
 use NotificationChannels\Bandwidth\BandwidthMessage;
-use NotificationChannels\Bandwidth\Exceptions\CouldNotSendException;
+use NotificationChannels\Bandwidth\Exceptions\BandwidthBaseException;
+use NotificationChannels\Bandwidth\Exceptions\BandwidthRequestException;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -23,15 +24,9 @@ class ChannelTest extends TestCase
 
     protected BandwidthChannel $channel;
 
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
+    protected LoggerInterface $logger;
 
-    /**
-     * @var Dispatcher
-     */
-    protected $events;
+    protected Dispatcher $events;
 
     protected BandwidthConfig $config;
 
@@ -140,7 +135,7 @@ class ChannelTest extends TestCase
                 ->response('Error', 500),
         ]);
 
-        $this->expectException(CouldNotSendException::class);
+        $this->expectException(BandwidthRequestException::class);
 
         $this->channel->send(new TestNotifiableModel(), new TestNotificationWithHttpBody());
     }

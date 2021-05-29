@@ -4,9 +4,11 @@ namespace NotificationChannels\Bandwidth;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Client\Factory as HttpClient;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Notifications\Events\NotificationFailed;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\Bandwidth\Exceptions\CouldNotSendException;
+use NotificationChannels\Bandwidth\Exceptions\BandwidthClientException;
+use NotificationChannels\Bandwidth\Exceptions\BandwidthRequestException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -74,10 +76,14 @@ class BandwidthChannel
                 ->post($this->getPostUrl(), $payload)
                 ->throw()
                 ->json();
-        } catch (Throwable $exception) {
-            $this->emitFailedEvent($notifiable, $notification, $exception, $exception->getMessage());
+        } catch (RequestException $exception) {
 
-            throw CouldNotSendException::clientError($exception);
+            $this->emitFailedEvent($notifiable, $notification, $exception, $exception->response->json());
+            throw new BandwidthRequestException($exception->response);
+        } catch (Throwable $exception) {
+
+            $this->emitFailedEvent($notifiable, $notification, $exception, $exception->getMessage());
+            throw new BandwidthClientException($exception);
         }
     }
 
@@ -95,7 +101,7 @@ class BandwidthChannel
         ], $message->toArray());
     }
 
-    protected function emitFailedEvent($notifiable, Notification $notification, Throwable $exception, string $message)
+    protected function emitFailedEvent($notifiable, Notification $notification, Throwable $exception, $message)
     {
         $this->events->dispatch(new NotificationFailed(
             $notifiable,

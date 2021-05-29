@@ -2,9 +2,9 @@
 
 namespace NotificationChannels\Bandwidth\Exceptions;
 
-use Exception;
+use RuntimeException;
 
-class InvalidConfigException extends Exception
+class InvalidConfigException extends RuntimeException
 {
     public static function missingConfig(): self
     {
