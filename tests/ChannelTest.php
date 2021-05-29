@@ -19,15 +19,9 @@ class ChannelTest extends TestCase
 {
     use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
-    /**
-     * @var HttpClient
-     */
-    protected $client;
+    protected HttpClient $client;
 
-    /**
-     * @var BandwidthChannel
-     */
-    protected $channel;
+    protected BandwidthChannel $channel;
 
     /**
      * @var LoggerInterface
@@ -39,10 +33,7 @@ class ChannelTest extends TestCase
      */
     protected $events;
 
-    /**
-     * @var BandwidthConfig
-     */
-    protected $config;
+    protected BandwidthConfig $config;
 
     public function setUp(): void
     {
@@ -55,7 +46,7 @@ class ChannelTest extends TestCase
         $this->channel = new BandwidthChannel($this->client, $this->config, $this->logger, $this->events);
     }
 
-    protected function getConfig($config = [])
+    protected function getConfig($config = []): BandwidthConfig
     {
         return new BandwidthConfig(array_merge([
             'application_id' => 'demo_application_id',
@@ -66,7 +57,7 @@ class ChannelTest extends TestCase
         ], $config));
     }
 
-    protected function mergeWith(array $payload)
+    protected function mergeWith(array $payload): array
     {
         return array_merge([
             'applicationId' => $this->config->getApplicationId(),

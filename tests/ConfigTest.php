@@ -7,15 +7,10 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    /**
-     * @var BandwidthConfig
-     */
-    protected $config;
 
-    /**
-     * @var array
-     */
-    protected $params = [
+    protected BandwidthConfig $config;
+
+    protected array $params = [
         'application_id' => 'demo_application_id',
         'account_id' => 'demo_account_id',
         'api_username' => 'demo_user',

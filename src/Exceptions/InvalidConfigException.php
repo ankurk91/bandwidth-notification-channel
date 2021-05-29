@@ -6,11 +6,8 @@ use Exception;
 
 class InvalidConfigException extends Exception
 {
-    /**
-     * @return self
-     */
-    public static function missingConfig()
+    public static function missingConfig(): self
     {
-        return new static('In order to send notification via Bandwidth you need to add credentials in the `bandwidth` key of `config.services`.');
+        return new static('Bandwidth SMS configuration is missing in your `config/services.php` file.');
     }
 }

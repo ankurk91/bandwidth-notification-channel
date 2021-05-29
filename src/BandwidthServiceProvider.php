@@ -7,11 +7,6 @@ use NotificationChannels\Bandwidth\Exceptions\InvalidConfigException;
 
 class BandwidthServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
         $this->app->when(BandwidthConfig::class)
@@ -19,7 +14,7 @@ class BandwidthServiceProvider extends ServiceProvider
             ->give(function () {
                 $config = $this->app['config']->get('services.bandwidth');
 
-                if (is_null($config)) {
+                if (\is_null($config)) {
                     throw InvalidConfigException::missingConfig();
                 }
 
@@ -27,11 +22,6 @@ class BandwidthServiceProvider extends ServiceProvider
             });
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         //

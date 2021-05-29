@@ -10,16 +10,17 @@ on:
       - master
       - dev
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 0 10 * *'
 
 jobs:
   test:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
-        php: [7.3, 7.4, 8.0]
+        php: [7.4, 8.0]
         composer-flag: [prefer-lowest, prefer-stable]
 
     name: php v${{ matrix.php }} - ${{ matrix.composer-flag }}

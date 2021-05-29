@@ -7,12 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class MessageTest extends TestCase
 {
-    /**
-     * @var BandwidthMessage
-     */
-    protected $message;
+    protected BandwidthMessage $message;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $this->message = new BandwidthMessage();

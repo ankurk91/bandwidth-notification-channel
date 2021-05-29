@@ -7,55 +7,24 @@ use Illuminate\Support\Arr;
 
 class BandwidthMessage implements Arrayable
 {
-    /**
-     * @var array
-     */
-    protected $payload = [];
+    protected array $payload = [];
 
-    /**
-     * Create a new message instance.
-     *
-     * @param  string  $content
-     *
-     * @return void
-     */
     public function __construct($content = '')
     {
         $this->setParameter('text', $content);
     }
 
-    /**
-     * Create a new message instance.
-     *
-     * @param  string  $content
-     *
-     * @return BandwidthMessage
-     */
-    public static function create($content = '')
+    public static function create($content = ''): self
     {
         return new self($content);
     }
 
-    /**
-     * Set the message content.
-     *
-     * @param  string  $content
-     *
-     * @return $this
-     */
-    public function content(string $content)
+    public function content(string $content): self
     {
         return $this->setParameter('text', $content);
     }
 
-    /**
-     * Set the phone number the message should be sent from.
-     *
-     * @param  string  $from
-     *
-     * @return $this
-     */
-    public function from(string $from)
+    public function from(string $from): self
     {
         return $this->setParameter('from', $from);
     }
@@ -64,11 +33,11 @@ class BandwidthMessage implements Arrayable
      * Set the media url(s) for MMS messages.
      *
      * @source https://dev.bandwidth.com/faq/messaging/mediaType.html
-     * @param  string|array  $media
+     * @param string|array $media
      *
      * @return $this
      */
-    public function media($media)
+    public function media($media): self
     {
         return $this->setParameter('media', Arr::wrap($media));
     }
@@ -77,50 +46,29 @@ class BandwidthMessage implements Arrayable
      * Set additional request options for the Guzzle HTTP client.
      * Note: this method can overwrite existing keys in payload.
      *
-     * @param  array  $body
+     * @param array $body
      *
      * @return $this
      */
-    public function http(array $body)
+    public function http(array $body): self
     {
         $this->payload = array_merge($this->payload, $body);
 
         return $this;
     }
 
-    /**
-     * Set parameters.
-     *
-     * @param  string  $key
-     * @param  mixed  $value
-     *
-     * @return $this
-     */
-    public function setParameter(string $key, $value)
+    public function setParameter(string $key, $value): self
     {
         Arr::set($this->payload, $key, $value);
 
         return $this;
     }
 
-    /**
-     * Get parameters.
-     *
-     * @param  string  $key
-     * @param  mixed  $default
-     *
-     * @return mixed
-     */
     public function getParameter(string $key, $default = null)
     {
         return Arr::get($this->payload, $key, $default);
     }
 
-    /**
-     * The array representation of message.
-     *
-     * @return array
-     */
     public function toArray(): array
     {
         return $this->payload;
