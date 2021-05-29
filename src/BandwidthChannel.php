@@ -109,7 +109,6 @@ class BandwidthChannel
                 ])
                 ->acceptJson()
                 ->timeout(15)
-                ->retry(3, 1000)
                 ->post($this->getPostUrl(), $payload)
                 ->throw()
                 ->json();
