@@ -8,13 +8,13 @@
 [![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
 This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with
-Laravel v7.0+
+Laravel.
 
 ## Installation
 
 You can install the package via composer:
 
-```
+```bash
 composer require ankurk91/bandwidth-notification-channel
 ```
 
@@ -22,38 +22,25 @@ Package will auto register the service provider.
 
 ## Setting up your Bandwidth account
 
-Add the [Bandwidth](https://dev.bandwidth.com/guides/accountCredentials.html) service credentials in
-your `config/services.php` file:
+* Grab your account credentials from [Bandwidth](https://dev.bandwidth.com/guides/accountCredentials.html)
+* Add the account credentials in your `.env` file:
 
-```php
-<?php
-
-return [
-    'bandwidth' => [
-        'application_id' => env('BANDWIDTH_APPLICATION_ID'), 
-        'account_id' => env('BANDWIDTH_ACCOUNT_ID'), 
-        'api_username' => env('BANDWIDTH_API_USERNAME'), 
-        'api_password' => env('BANDWIDTH_API_PASSWORD'), 
-        'from' => env('BANDWIDTH_FROM'), 
-        'dry_run' => env('BANDWIDTH_DRY_RUN'), 
-    ],
-];
-```
-
-Also, update your `.env.example` and `.env` files:
-
-```
-BANDWIDTH_APPLICATION_ID=
+```dotenv
 BANDWIDTH_ACCOUNT_ID=
+BANDWIDTH_APPLICATION_ID=
 BANDWIDTH_API_USERNAME=
 BANDWIDTH_API_PASSWORD=
 BANDWIDTH_FROM=
 BANDWIDTH_DRY_RUN=false
 ```
 
-* The `from` option is the phone number that your messages will be sent from.
-* The `dry_run` option allows to you test the channel without sending actual SMS. When `dry_run` is set to `true`,
-  messages will be written to your application's log files instead of being sent to the recipient.
+## Publish the config file (optional)
+
+You can publish the [config](./config/bandwidth.php) file to your project.
+
+```bash
+php artisan vendor:publish --provider="NotificationChannels\Bandwidth\BandwidthServiceProvider" --tag="config"
+```
 
 ## Usage
 
@@ -110,10 +97,26 @@ class User extends Authenticatable
 
 ### Methods available on `BandwidthMessage` class
 
-* `content()`: Accepts a string value for the notification body.
-* `from()`: Accepts a phone number to use as the notification sender.
-* `media()`: Accepts a URL or array of URLs to be used as MMS.
-* `http()`: Accepts an `array` to send along with notification http payload.
+* `content()` - Accepts a string value for the notification body.
+* `from()` - Accepts a phone number to use as the notification sender.
+* `media()` - Accepts a URL or array of URLs to be used as MMS.
+* `http()` - Accepts an `array` to send along with notification http payload.
+
+```php
+<?php
+use NotificationChannels\Bandwidth\BandwidthMessage;
+
+BandwidthMessage::create()
+            ->content("This is sample text message.")
+            ->from('+19195551212')
+            ->media([
+                'https://example.com/a-public-image.jpg',
+                'https://example.com/a-public-audio.mp3',
+            ])
+            ->http([
+                'tag' => 'info'         
+            ]);
+```
 
 ### Events
 
@@ -125,9 +128,10 @@ class User extends Authenticatable
 
 ### Notes (Taken from API docs)
 
-* The `from` and `to` numbers must be in `E.164` format, for example `+14244443192`.
-* Message content length must be `2048` characters or less. Messages larger than `160` characters are automatically
-  fragmented and re-assembled to fit within the `160` character transport constraints.
+* The `from` and `to` numbers must be in `E.164` format, for example `+19195551212`.
+* Message content length must be `2048` characters or less.
+* Messages larger than `160` characters will be automatically fragmented and re-assembled to fit within the `160`
+  character transport constraints.
 
 ## Changelog
 
@@ -135,7 +139,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
-```
+```bash
 composer test
 ```
 
@@ -149,6 +153,7 @@ tracker.
 * Bandwidth API v2 [Docs](https://dev.bandwidth.com/messaging/about.html)
 * Phone number
   validation [regex](https://stackoverflow.com/questions/6478875/regular-expression-matching-e-164-formatted-phone-numbers)
+* [Supported MMS file types](https://dev.bandwidth.com/faq/messaging/mediaType.html)
 
 ## License
 

@@ -39,22 +39,11 @@ class BandwidthConfig implements Arrayable
         return Arr::get($this->config, 'from', null);
     }
 
-    /**
-     * Determines whether to debug Guzzle client or not.
-     * @source http://docs.guzzlephp.org/en/stable/request-options.html#debug
-     *
-     * @return bool
-     */
     public function debugHttp(): bool
     {
         return Arr::get($this->config, 'debug_http', false);
     }
 
-    /**
-     * Simulate API calls by logging them.
-     *
-     * @return bool
-     */
     public function dryRun(): bool
     {
         return Arr::get($this->config, 'dry_run', false);

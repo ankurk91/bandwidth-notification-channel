@@ -3,27 +3,26 @@
 namespace NotificationChannels\Bandwidth;
 
 use Illuminate\Support\ServiceProvider;
-use NotificationChannels\Bandwidth\Exceptions\InvalidConfigException;
 
 class BandwidthServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/bandwidth.php' => config_path('bandwidth.php'),
+            ], 'config');
+        }
+
         $this->app->when(BandwidthConfig::class)
             ->needs('$config')
             ->give(function () {
-                $config = $this->app['config']->get('services.bandwidth');
-
-                if (\is_null($config)) {
-                    throw InvalidConfigException::missingConfig();
-                }
-
-                return $config;
+                return $this->app['config']->get('bandwidth');
             });
     }
 
     public function register()
     {
-        //
+        $this->mergeConfigFrom(__DIR__ . '/../config/bandwidth.php', 'bandwidth');
     }
 }

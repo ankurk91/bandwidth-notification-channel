@@ -1,5 +1,8 @@
 # Changelog
 
+## [6.0.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/5.0.1..6.0.0)
+* Configuration has been moved from `config/services.php` to `config/bandwidth.php`
+
 ## [5.0.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/4.0.3..5.0.0)
 * Requires php v7.4+
 * :warning: Environment variable names has been changed
