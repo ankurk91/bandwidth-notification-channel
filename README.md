@@ -100,7 +100,7 @@ class User extends Authenticatable
 * `content()` - Accepts a string value for the notification body.
 * `from()` - Accepts a phone number to use as the notification sender.
 * `media()` - Accepts a URL or array of URLs to be used as MMS.
-* `http()` - Accepts an `array` to send along with notification http payload.
+* `httpBody()` - Accepts an `array` to send along with notification http payload.
 
 ```php
 <?php
@@ -113,7 +113,7 @@ BandwidthMessage::create()
                 'https://example.com/a-public-image.jpg',
                 'https://example.com/a-public-audio.mp3',
             ])
-            ->http([
+            ->httpBody([
                 'tag' => 'info'         
             ]);
 ```

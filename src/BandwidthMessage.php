@@ -50,7 +50,7 @@ class BandwidthMessage implements Arrayable
      *
      * @return $this
      */
-    public function http(array $body): self
+    public function httpBody(array $body): self
     {
         $this->payload = array_merge($this->payload, $body);
 

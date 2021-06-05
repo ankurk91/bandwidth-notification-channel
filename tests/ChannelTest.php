@@ -242,7 +242,7 @@ class TestNotificationWithHttpBody extends Notification
     {
         return BandwidthMessage::create()
             ->content("Test message content.")
-            ->http([
+            ->httpBody([
                 'tag' => 'info',
             ]);
     }

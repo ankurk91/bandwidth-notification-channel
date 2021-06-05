@@ -62,7 +62,7 @@ class MessageTest extends TestCase
             'tag' => 'info',
         ];
 
-        $this->message->http($httpBody);
+        $this->message->httpBody($httpBody);
         $this->assertSame($this->message->getParameter('tag'), $httpBody['tag']);
     }
 }
