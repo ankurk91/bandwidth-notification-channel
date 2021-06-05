@@ -33,8 +33,9 @@ return [
     'dry_run' => env('BANDWIDTH_DRY_RUN', false),
 
     /**
-     * Determines whether to debug Guzzle http client or not.
-     * @source http://docs.guzzlephp.org/en/stable/request-options.html#debug
+     * @source http://docs.guzzlephp.org/en/stable/request-options.html
      */
-    'debug_http' => env('BANDWIDTH_DEBUG_HTTP_CLIENT', false),
+    'http_options' => [
+        'debug' => env('BANDWIDTH_DEBUG_HTTP_CLIENT', false),
+    ],
 ];

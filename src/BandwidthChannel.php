@@ -68,9 +68,7 @@ class BandwidthChannel
         try {
             return $this->client
                 ->withBasicAuth($this->config->getApiUsername(), $this->config->getApiPassword())
-                ->withOptions([
-                    'debug' => $this->config->debugHttp(),
-                ])
+                ->withOptions($this->config->httpOptions())
                 ->acceptJson()
                 ->timeout(15)
                 ->post($this->getPostUrl(), $payload)

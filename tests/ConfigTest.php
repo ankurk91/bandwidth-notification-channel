@@ -16,9 +16,12 @@ class ConfigTest extends TestCase
         'api_username' => 'demo_user',
         'api_password' => 'demo_password',
         'from' => '+1234567890',
+        'http_options' => [
+            'debug' => false
+        ]
     ];
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $this->config = new BandwidthConfig($this->params);
@@ -51,16 +54,18 @@ class ConfigTest extends TestCase
     /** @test */
     public function it_returns_the_http_debug_default_value_false()
     {
-        $this->assertFalse($this->config->debugHttp());
+        $this->assertFalse($this->config->httpOptions()['debug']);
     }
 
     /** @test */
     public function it_returns_the_http_debug_value_when_set()
     {
         $config = new BandwidthConfig([
-            'debug_http' => true,
+            'http_options' => [
+                'debug' => true
+            ],
         ]);
-        $this->assertTrue($config->debugHttp());
+        $this->assertTrue($config->httpOptions()['debug']);
     }
 
     /** @test */

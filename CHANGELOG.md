@@ -4,6 +4,7 @@
 * Configuration has been moved from `config/services.php` to `config/bandwidth.php`
 * Drop support for Laravel 7.x
 * Rename `http()` method to `httpBody()`
+* Allow to override guzzle http options via config
 
 ## [5.0.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/4.0.3..5.0.0)
 * Requires php v7.4+

@@ -39,9 +39,9 @@ class BandwidthConfig implements Arrayable
         return Arr::get($this->config, 'from', null);
     }
 
-    public function debugHttp(): bool
+    public function httpOptions(): array
     {
-        return Arr::get($this->config, 'debug_http', false);
+        return Arr::get($this->config, 'http_options', []);
     }
 
     public function dryRun(): bool
