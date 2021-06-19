@@ -1,4 +1,4 @@
-# Bandwidth notification channel for Laravel
+# Bandwidth Notification Channel for Laravel
 
 [![Packagist](https://badgen.net/packagist/v/ankurk91/bandwidth-notification-channel)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel)
 [![GitHub tag](https://badgen.net/github/tag/ankurk91/bandwidth-notification-channel)](https://github.com/ankurk91/bandwidth-notification-channel/releases)
@@ -36,7 +36,7 @@ BANDWIDTH_DRY_RUN=false
 
 ## Publish the config file (optional)
 
-You can publish the [config](./config/bandwidth.php) file to your project.
+You can publish the [config](./config/bandwidth.php) file into your project.
 
 ```bash
 php artisan vendor:publish --provider="NotificationChannels\Bandwidth\BandwidthServiceProvider" --tag="config"
@@ -122,9 +122,58 @@ BandwidthMessage::create()
 
 * The package utilises Laravel's inbuilt
   notification [events](https://laravel.com/docs/8.x/notifications#notification-events)
-* You can listen to these events in your app
-    - `Illuminate\Notifications\Events\NotificationSent`
-    - `Illuminate\Notifications\Events\NotificationFailed`
+* You can listen to these events in your project's `EventServiceProvider` like:
+
+```php
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+
+class EventServiceProvider extends ServiceProvider
+{
+    protected $listen = [
+        \Illuminate\Notifications\Events\NotificationSent::class => [
+            \App\Listeners\NotificationSent::class,
+        ],
+        \Illuminate\Notifications\Events\NotificationFailed::class => [
+            \App\Listeners\NotificationFailed::class,
+        ],
+    ];
+    
+    public function boot()
+    {
+        //
+    }
+}
+```
+
+Here is the example of failed event listener class
+```php
+<?php
+
+namespace App\Listeners;
+
+use App\Models\User;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Events\NotificationFailed;
+
+class NotificationFailed implements ShouldQueue
+{
+    public function handle(NotificationFailed $event)
+    {
+        if ($event->channel !== \NotificationChannels\Bandwidth\BandwidthChannel::class) {
+            return;
+        }
+
+        /** @var User $user */
+        $user = $event->notifiable;
+        
+        // Do something
+    }
+}
+```
 
 ### Notes (Taken from API docs)
 
