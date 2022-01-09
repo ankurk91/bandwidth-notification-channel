@@ -22,7 +22,7 @@ Package will auto register the service provider.
 
 ## Setting up your Bandwidth account
 
-* Grab your account credentials from [Bandwidth](https://dev.bandwidth.com/guides/accountCredentials.html)
+* Grab your account credentials from [Bandwidth](https://new.dev.bandwidth.com/docs/account/credentials)
 * Add the account credentials in your `.env` file:
 
 ```dotenv
@@ -121,7 +121,7 @@ BandwidthMessage::create()
 ### Events
 
 * The package utilises Laravel's inbuilt
-  notification [events](https://laravel.com/docs/8.x/notifications#notification-events)
+  notification [events](https://laravel.com/docs/9.x/notifications#notification-events)
 * You can listen to these events in your project's `EventServiceProvider` like:
 
 ```php
@@ -135,10 +135,10 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         \Illuminate\Notifications\Events\NotificationSent::class => [
-            \App\Listeners\NotificationSent::class,
+            \App\Listeners\BandwidthNotificationSent::class,
         ],
         \Illuminate\Notifications\Events\NotificationFailed::class => [
-            \App\Listeners\NotificationFailed::class,
+            \App\Listeners\BandwidthNotificationFailed::class,
         ],
     ];
     
@@ -159,7 +159,7 @@ use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Events\NotificationFailed;
 
-class NotificationFailed implements ShouldQueue
+class BandwidthNotificationFailed implements ShouldQueue
 {
     public function handle(NotificationFailed $event)
     {
@@ -199,10 +199,8 @@ tracker.
 
 ### Resources
 
-* Bandwidth API v2 [Docs](https://dev.bandwidth.com/messaging/about.html)
-* Phone number
-  validation [regex](https://stackoverflow.com/questions/6478875/regular-expression-matching-e-164-formatted-phone-numbers)
-* [Supported MMS file types](https://dev.bandwidth.com/faq/messaging/mediaType.html)
+* Bandwidth Messaging API v2 [Docs](https://new.dev.bandwidth.com/docs/messaging)
+* Phone number validation [regex](https://stackoverflow.com/questions/6478875)
 
 ## License
 
