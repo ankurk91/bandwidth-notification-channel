@@ -30,12 +30,12 @@ return [
      * When it is set to `true`, messages will be written to Laravel log files
      * instead of being sent to the actual recipient.
      */
-    'dry_run' => env('BANDWIDTH_DRY_RUN', false),
+    'dry_run' => (bool) env('BANDWIDTH_DRY_RUN', false),
 
     /**
      * @source http://docs.guzzlephp.org/en/stable/request-options.html
      */
     'http_options' => [
-        'debug' => env('BANDWIDTH_DEBUG_HTTP_CLIENT', false),
+        'debug' => (bool) env('BANDWIDTH_DEBUG_HTTP_CLIENT', false),
     ],
 ];

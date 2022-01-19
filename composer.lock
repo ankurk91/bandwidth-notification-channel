@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a3300830bc73798eea4fb64da11c4d8",
+    "content-hash": "2de7bb4dcd6abb395d63b2d1b5a1deb5",
     "packages": [
         {
             "name": "brick/math",
@@ -2367,6 +2367,10 @@
                 {
                     "url": "https://github.com/ramsey",
                     "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/ramsey/uuid",
+                    "type": "tidelift"
                 }
             ],
             "time": "2020-08-18T17:17:46+00:00"
@@ -2444,6 +2448,7 @@
                     "type": "tidelift"
                 }
             ],
+            "abandoned": "symfony/mailer",
             "time": "2021-03-09T12:30:35+00:00"
         },
         {
@@ -4868,9 +4873,6 @@
             "require": {
                 "php": "^7.1 || ^8.0"
             },
-            "replace": {
-                "myclabs/deep-copy": "self.version"
-            },
             "require-dev": {
                 "doctrine/collections": "^1.0",
                 "doctrine/common": "^2.6",
@@ -6801,9 +6803,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4||^8.0",
-        "ext-json": "*"
+        "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }

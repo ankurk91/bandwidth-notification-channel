@@ -7,8 +7,7 @@
 [![tests](https://github.com/ankurk91/bandwidth-notification-channel/workflows/tests/badge.svg)](https://github.com/ankurk91/bandwidth-notification-channel/actions)
 [![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
-This package makes it easy to send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with
-Laravel.
+Send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel php framework.
 
 ## Installation
 
@@ -17,8 +16,6 @@ You can install the package via composer:
 ```bash
 composer require ankurk91/bandwidth-notification-channel
 ```
-
-Package will auto register the service provider.
 
 ## Setting up your Bandwidth account
 
@@ -44,7 +41,7 @@ php artisan vendor:publish --provider="NotificationChannels\Bandwidth\BandwidthS
 
 ## Usage
 
-Now you can use the Bandwidth channel in the `via()` method inside your Notification class:
+You can use the Bandwidth channel in the `via()` method inside your Notification class:
 
 ```php
 <?php
@@ -61,12 +58,12 @@ class AccountApproved extends Notification implements ShouldQueue
 {
     use Queueable;
       
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return [BandwidthChannel::class];
     }
   
-    public function toBandwidth($notifiable)
+    public function toBandwidth($notifiable): BandwidthMessage
     {
         return BandwidthMessage::create()
             ->content("Hi {$notifiable->name}, Your account was approved!");
@@ -121,7 +118,7 @@ BandwidthMessage::create()
 ### Events
 
 * The package utilises Laravel's inbuilt
-  notification [events](https://laravel.com/docs/9.x/notifications#notification-events)
+  notification [events](https://laravel.com/docs/8.x/notifications#notification-events)
 * You can listen to these events in your project's `EventServiceProvider` like:
 
 ```php
@@ -140,12 +137,7 @@ class EventServiceProvider extends ServiceProvider
         \Illuminate\Notifications\Events\NotificationFailed::class => [
             \App\Listeners\BandwidthNotificationFailed::class,
         ],
-    ];
-    
-    public function boot()
-    {
-        //
-    }
+    ];   
 }
 ```
 
@@ -194,8 +186,7 @@ composer test
 
 ## Security
 
-If you discover any security related issues, please email `pro.ankurk1[at]gmail[dot]com` instead of using the issue
-tracker.
+If you discover any security issues, please email `pro.ankurk1[at]gmail[dot]com` instead of using the issue tracker.
 
 ### Resources
 
@@ -204,4 +195,4 @@ tracker.
 
 ## License
 
-The [MIT](https://opensource.org/licenses/MIT) License.
+This package is licensed under [MIT License](https://opensource.org/licenses/MIT).

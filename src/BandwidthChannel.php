@@ -19,25 +19,14 @@ class BandwidthChannel
      */
     protected const API_BASE_URL = 'https://messaging.bandwidth.com/api/v2/';
 
-    protected HttpClient $client;
-
-    protected BandwidthConfig $config;
-
-    protected LoggerInterface $logger;
-
-    protected Dispatcher $events;
-
     public function __construct(
-        HttpClient $client,
-        BandwidthConfig $config,
-        LoggerInterface $logger,
-        Dispatcher $dispatcher
+        protected HttpClient      $client,
+        protected BandwidthConfig $config,
+        protected LoggerInterface $logger,
+        protected Dispatcher      $events
     )
     {
-        $this->client = $client;
-        $this->config = $config;
-        $this->logger = $logger;
-        $this->events = $dispatcher;
+        //
     }
 
     public function send($notifiable, Notification $notification)
@@ -46,12 +35,7 @@ class BandwidthChannel
             return null;
         }
 
-        $message = $notification->toBandwidth($notifiable);
-
-        if (\is_string($message)) {
-            $message = new BandwidthMessage($message);
-        }
-
+        $message = $this->getMessage($notification, $notifiable);
         $payload = $this->getPayload($message, $to);
 
         if ($this->config->dryRun()) {
@@ -68,9 +52,9 @@ class BandwidthChannel
         try {
             return $this->client
                 ->withBasicAuth($this->config->getApiUsername(), $this->config->getApiPassword())
-                ->withOptions($this->config->httpOptions())
                 ->acceptJson()
-                ->timeout(15)
+                ->timeout(30)
+                ->withOptions($this->config->httpOptions())
                 ->post($this->getPostUrl(), $payload)
                 ->throw()
                 ->json();
@@ -88,6 +72,21 @@ class BandwidthChannel
     protected function getPostUrl(): string
     {
         return self::API_BASE_URL . "users/{$this->config->getAccountId()}/messages";
+    }
+
+    protected function getMessage(Notification $notification, $notifiable): BandwidthMessage
+    {
+        if (!method_exists($notification, 'toBandwidth')) {
+            throw new \RuntimeException('Notification class is missing toBandwidth method.');
+        }
+
+        $message = $notification->toBandwidth($notifiable);
+
+        if (\is_string($message)) {
+            $message = new BandwidthMessage($message);
+        }
+
+        return $message;
     }
 
     protected function getPayload(BandwidthMessage $message, string $to): array
