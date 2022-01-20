@@ -5,7 +5,7 @@ namespace NotificationChannels\Bandwidth\Exceptions;
 
 use Exception;
 
-class BandwidthBaseException extends Exception
+abstract class BandwidthBaseException extends Exception
 {
     //
 }

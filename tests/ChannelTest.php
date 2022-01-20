@@ -5,20 +5,24 @@ namespace NotificationChannels\Bandwidth\Tests;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Client\Factory as HttpClient;
 use Illuminate\Http\Client\Request;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Notifications\Notification;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthConfig;
-use NotificationChannels\Bandwidth\BandwidthMessage;
-use NotificationChannels\Bandwidth\Exceptions\BandwidthBaseException;
 use NotificationChannels\Bandwidth\Exceptions\BandwidthRequestException;
+use NotificationChannels\Bandwidth\Tests\Resources\Models\TestNotifiableModel;
+use NotificationChannels\Bandwidth\Tests\Resources\Models\TestNotifiableModelWithoutPhone;
+use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotification;
+use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotificationWithCustomFrom;
+use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotificationWithHttpBody;
+use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotificationWithMedia;
+use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotificationWithoutMessageInstance;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 class ChannelTest extends TestCase
 {
-    use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+    use MockeryPHPUnitIntegration;
 
     protected HttpClient $client;
 
@@ -172,78 +176,5 @@ class ChannelTest extends TestCase
 
         $channel->send(new TestNotifiableModel(), new TestNotification());
         $this->client->assertNothingSent();
-    }
-}
-
-
-class TestNotifiableModel
-{
-    use Notifiable;
-
-    public function routeNotificationForBandwidth($notification)
-    {
-        return '+1234567890';
-    }
-}
-
-class TestNotifiableModelWithoutPhone
-{
-    use Notifiable;
-
-    public function routeNotificationForBandwidth($notification)
-    {
-        return false;
-    }
-
-}
-
-class TestNotification extends Notification
-{
-    public $id = 'random-id';
-
-    public function toBandwidth($notifiable)
-    {
-        return (new BandwidthMessage())
-            ->content("Test message content.");
-    }
-}
-
-class TestNotificationWithoutMessageInstance extends Notification
-{
-    public function toBandwidth($notifiable)
-    {
-        return 'Test message content.';
-    }
-}
-
-class TestNotificationWithCustomFrom extends Notification
-{
-    public function toBandwidth($notifiable)
-    {
-        return (new BandwidthMessage())
-            ->content("Test message content.")
-            ->from('+1987654320');
-    }
-}
-
-class TestNotificationWithMedia extends Notification
-{
-    public function toBandwidth($notifiable)
-    {
-        return (new BandwidthMessage())
-            ->content("Test message content.")
-            ->media('http://localhost/image.png');
-    }
-}
-
-class TestNotificationWithHttpBody extends Notification
-{
-    public function toBandwidth($notifiable)
-    {
-        return BandwidthMessage::create()
-            ->content("Test message content.")
-            ->httpBody([
-                'tag' => 'info',
-            ]);
     }
 }

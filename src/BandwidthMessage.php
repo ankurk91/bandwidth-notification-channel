@@ -38,7 +38,7 @@ class BandwidthMessage implements Arrayable
      *
      * @return $this
      */
-    public function media($media): self
+    public function media(string|array $media): self
     {
         return $this->setParameter('media', Arr::wrap($media));
     }
