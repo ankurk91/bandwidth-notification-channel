@@ -3,11 +3,11 @@ name: tests
 on:
   push:
     branches:
-      - master
+      - main
       - dev
   pull_request:
     branches:
-      - master
+      - main
       - dev
   schedule:
     - cron: '0 0 10 * *'
@@ -40,7 +40,7 @@ jobs:
         run: composer update --${{ matrix.composer-flag }} --no-interaction --no-progress
 
       - name: Execute tests
-        run: composer test -- --coverage-clover=coverage.xml
+        run: composer test:coverage
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v2

@@ -5,7 +5,7 @@
 [![License](https://badgen.net/packagist/license/ankurk91/bandwidth-notification-channel)](LICENSE.txt)
 [![Downloads](https://badgen.net/packagist/dt/ankurk91/bandwidth-notification-channel)](https://packagist.org/packages/ankurk91/bandwidth-notification-channel/stats)
 [![tests](https://github.com/ankurk91/bandwidth-notification-channel/workflows/tests/badge.svg)](https://github.com/ankurk91/bandwidth-notification-channel/actions)
-[![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/master/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
+[![codecov](https://codecov.io/gh/ankurk91/bandwidth-notification-channel/branch/main/graph/badge.svg)](https://codecov.io/gh/ankurk91/bandwidth-notification-channel)
 
 Send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications with Laravel php framework.
 
@@ -19,7 +19,7 @@ composer require ankurk91/bandwidth-notification-channel
 
 ## Setting up your Bandwidth account
 
-* Grab your account credentials from [Bandwidth](https://new.dev.bandwidth.com/docs/account/credentials)
+* Grab your account credentials from [Bandwidth](https://dev.bandwidth.com/docs/account/credentials)
 * Add the account credentials in your `.env` file:
 
 ```dotenv
@@ -76,7 +76,7 @@ Add the `routeNotificationForBandwidth` method to your Notifiable model:
 ```php
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -149,13 +149,14 @@ namespace App\Listeners;
 
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use NotificationChannels\Bandwidth\BandwidthChannel;
 use Illuminate\Notifications\Events\NotificationFailed;
 
 class BandwidthNotificationFailed implements ShouldQueue
 {
     public function handle(NotificationFailed $event)
     {
-        if ($event->channel !== \NotificationChannels\Bandwidth\BandwidthChannel::class) {
+        if ($event->channel !== BandwidthChannel::class) {
             return;
         }
 
@@ -190,7 +191,7 @@ If you discover any security issues, please email `pro.ankurk1[at]gmail[dot]com`
 
 ### Resources
 
-* Bandwidth Messaging API v2 [Docs](https://new.dev.bandwidth.com/docs/messaging)
+* Bandwidth Messaging API v2 [Docs](https://dev.bandwidth.com/docs/messaging)
 * Phone number validation [regex](https://stackoverflow.com/questions/6478875)
 
 ## License

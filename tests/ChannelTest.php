@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\Bandwidth\Test;
+namespace NotificationChannels\Bandwidth\Tests;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Client\Factory as HttpClient;

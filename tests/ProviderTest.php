@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\Bandwidth\Test;
+namespace NotificationChannels\Bandwidth\Tests;
 
 use NotificationChannels\Bandwidth\BandwidthServiceProvider;
 use PHPUnit\Framework\TestCase;

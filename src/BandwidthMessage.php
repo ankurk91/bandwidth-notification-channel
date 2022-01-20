@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace NotificationChannels\Bandwidth;
 
@@ -32,7 +33,7 @@ class BandwidthMessage implements Arrayable
     /**
      * Set the media url(s) for MMS messages.
      *
-     * @source https://dev.bandwidth.com/faq/messaging/mediaType.html
+     * @source https://dev.bandwidth.com/docs/messaging/media/
      * @param string|array $media
      *
      * @return $this

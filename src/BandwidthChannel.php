@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace NotificationChannels\Bandwidth;
 
@@ -15,7 +16,7 @@ use Throwable;
 class BandwidthChannel
 {
     /**
-     * @source https://dev.bandwidth.com/messaging/about.html
+     * @source https://dev.bandwidth.com/docs/messaging
      */
     protected const API_BASE_URL = 'https://messaging.bandwidth.com/api/v2/';
 
@@ -61,7 +62,7 @@ class BandwidthChannel
         } catch (RequestException $exception) {
 
             $this->emitFailedEvent($notifiable, $notification, $exception, $exception->response->json());
-            throw new BandwidthRequestException($exception->response);
+            throw new BandwidthRequestException($exception);
         } catch (Throwable $exception) {
 
             $this->emitFailedEvent($notifiable, $notification, $exception, $exception->getMessage());
@@ -98,7 +99,7 @@ class BandwidthChannel
         ], $message->toArray());
     }
 
-    protected function emitFailedEvent($notifiable, Notification $notification, Throwable $exception, $message)
+    protected function emitFailedEvent($notifiable, Notification $notification, Throwable $exception, $message): void
     {
         $this->events->dispatch(new NotificationFailed(
             $notifiable,

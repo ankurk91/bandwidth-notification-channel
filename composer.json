@@ -38,7 +38,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "NotificationChannels\\Bandwidth\\Test\\": "tests/"
+      "NotificationChannels\\Bandwidth\\Tests\\": "tests/"
     }
   },
   "config": {
@@ -46,7 +46,8 @@
     "preferred-install": "dist"
   },
   "scripts": {
-    "test": "vendor/bin/phpunit --testdox --color=always"
+    "test": "vendor/bin/phpunit --testdox --color=always",
+    "test:coverage": "vendor/bin/phpunit --testdox --color=always --coverage-clover=coverage.xml"
   },
   "extra": {
     "laravel": {
