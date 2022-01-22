@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.1.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/6.0.0..6.1.0)
+
+* Allow Laravel v9.x
+* Drop support for php `7.4`
+* Default HTTP timeout is `30` second now
+
 ## [6.0.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/5.0.1..6.0.0)
 
 * Configuration has been moved from `config/services.php` to `config/bandwidth.php`
