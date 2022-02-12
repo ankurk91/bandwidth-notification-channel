@@ -66,7 +66,7 @@ class AccountApproved extends Notification implements ShouldQueue
     public function toBandwidth($notifiable): BandwidthMessage
     {
         return BandwidthMessage::create()
-            ->content("Hi {$notifiable->name}, Your account was approved!");
+            ->content("Hi {$notifiable->name}, Your account is approved!");
     }
 }
 ```
