@@ -34,9 +34,6 @@ class BandwidthMessage implements Arrayable
      * Set the media url(s) for MMS messages.
      *
      * @source https://dev.bandwidth.com/docs/messaging/media/
-     * @param string|array $media
-     *
-     * @return $this
      */
     public function media(string|array $media): self
     {
@@ -46,10 +43,6 @@ class BandwidthMessage implements Arrayable
     /**
      * Set additional request options for the Guzzle HTTP client.
      * Note: this method can overwrite existing keys in payload.
-     *
-     * @param array $body
-     *
-     * @return $this
      */
     public function httpBody(array $body): self
     {

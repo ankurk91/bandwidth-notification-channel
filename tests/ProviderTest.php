@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProviderTest extends TestCase
 {
-    public function test_it_can_be_instanciated()
+    public function test_it_can_be_instantiated()
     {
         $provider = new BandwidthServiceProvider([]);
 

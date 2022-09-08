@@ -14,7 +14,7 @@ Send [Bandwidth](https://www.bandwidth.com/messaging/sms-api/) SMS notifications
 You can install the package via composer:
 
 ```bash
-composer require ankurk91/bandwidth-notification-channel
+composer require "ankurk91/bandwidth-notification-channel"
 ```
 
 ## Setting up your Bandwidth account
@@ -118,7 +118,7 @@ BandwidthMessage::create()
 ### Events
 
 * The package utilises Laravel's inbuilt
-  notification [events](https://laravel.com/docs/8.x/notifications#notification-events)
+  notification [events](https://laravel.com/docs/9.x/notifications#notification-events)
 * You can listen to these events in your project's `EventServiceProvider` like:
 
 ```php
@@ -132,7 +132,7 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         \Illuminate\Notifications\Events\NotificationSent::class => [
-            \App\Listeners\BandwidthNotificationSent::class,
+           // \App\Listeners\BandwidthNotificationSent::class,
         ],
         \Illuminate\Notifications\Events\NotificationFailed::class => [
             \App\Listeners\BandwidthNotificationFailed::class,
@@ -141,7 +141,8 @@ class EventServiceProvider extends ServiceProvider
 }
 ```
 
-Here is the example of failed event listener class
+Here is the example of failed event listener class:
+
 ```php
 <?php
 
