@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.2.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/6.1.0..6.2.0)
+
+* Drop support for Laravel v8
+* Drop support for php v8.0
+* Test on php v8.2
+
 ## [6.1.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/6.0.0..6.1.0)
 
 * Allow Laravel v9.x
