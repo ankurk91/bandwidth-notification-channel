@@ -37,7 +37,7 @@ class BandwidthConfig implements Arrayable
 
     public function getFrom()
     {
-        return Arr::get($this->config, 'from', null);
+        return Arr::get($this->config, 'from');
     }
 
     public function httpOptions(): array

@@ -32,7 +32,7 @@ class BandwidthChannel
 
     public function send($notifiable, Notification $notification)
     {
-        if (!$to = $notifiable->routeNotificationFor('bandwidth', $notification)) {
+        if (!$to = $notifiable->routeNotificationFor('Bandwidth', $notification)) {
             return null;
         }
 
@@ -78,7 +78,7 @@ class BandwidthChannel
     protected function getMessage(Notification $notification, $notifiable): BandwidthMessage
     {
         if (!method_exists($notification, 'toBandwidth')) {
-            throw new \RuntimeException('Notification class is missing toBandwidth method.');
+            throw new \BadMethodCallException('Notification class is missing toBandwidth method.');
         }
 
         $message = $notification->toBandwidth($notifiable);

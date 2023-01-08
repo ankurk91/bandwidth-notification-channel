@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace NotificationChannels\Bandwidth\Tests;
 
@@ -10,13 +11,13 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use NotificationChannels\Bandwidth\BandwidthChannel;
 use NotificationChannels\Bandwidth\BandwidthConfig;
 use NotificationChannels\Bandwidth\Exceptions\BandwidthRequestException;
-use NotificationChannels\Bandwidth\Tests\Resources\Models\TestNotifiableModel;
-use NotificationChannels\Bandwidth\Tests\Resources\Models\TestNotifiableModelWithoutPhone;
-use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotification;
-use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotificationWithCustomFrom;
-use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotificationWithHttpBody;
-use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotificationWithMedia;
-use NotificationChannels\Bandwidth\Tests\Resources\Notifications\TestNotificationWithoutMessageInstance;
+use NotificationChannels\Bandwidth\Tests\Fixtures\Models\TestNotifiableModel;
+use NotificationChannels\Bandwidth\Tests\Fixtures\Models\TestNotifiableModelWithoutPhone;
+use NotificationChannels\Bandwidth\Tests\Fixtures\Notifications\TestNotification;
+use NotificationChannels\Bandwidth\Tests\Fixtures\Notifications\TestNotificationWithCustomFrom;
+use NotificationChannels\Bandwidth\Tests\Fixtures\Notifications\TestNotificationWithHttpBody;
+use NotificationChannels\Bandwidth\Tests\Fixtures\Notifications\TestNotificationWithMedia;
+use NotificationChannels\Bandwidth\Tests\Fixtures\Notifications\TestNotificationWithoutMessageInstance;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -56,7 +57,7 @@ class ChannelTest extends TestCase
         ], $config));
     }
 
-    protected function mergeWith(array $payload): array
+    protected function mergePayloadWith(array $payload): array
     {
         return array_merge([
             'applicationId' => $this->config->getApplicationId(),
@@ -68,7 +69,7 @@ class ChannelTest extends TestCase
     {
         $this->client->fake([
             '*' => $this->client
-                ->response(['id' => 123], 200),
+                ->response(['id' => 123]),
         ]);
 
         $response = $this->channel->send(new TestNotifiableModel(), new TestNotification());
@@ -161,7 +162,7 @@ class ChannelTest extends TestCase
 
         $this->logger->shouldReceive('debug')
             ->once()
-            ->with("Bandwidth Message-ID: <random-id>\n", $this->mergeWith([
+            ->with("Bandwidth Message-ID: <random-id>\n", $this->mergePayloadWith([
                 'from' => '+1234567890',
                 'to' => '+1234567890',
                 'text' => 'Test message content.',

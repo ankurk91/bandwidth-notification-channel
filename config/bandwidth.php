@@ -3,6 +3,7 @@
 return [
     /**
      * The unique ID associated with your Bandwidth account.
+     *
      * @source https://dev.bandwidth.com/guides/accountCredentials.html#messaging
      */
     'account_id' => env('BANDWIDTH_ACCOUNT_ID'),
@@ -23,7 +24,7 @@ return [
      * One of your telephone numbers; the message should sent from.
      * It must follow the E.164 format, for example +19195551212
      */
-    'from' => env('BANDWIDTH_FROM', null),
+    'from' => env('BANDWIDTH_FROM'),
 
     /**
      * This option allows to you test this channel without calling the actual API.

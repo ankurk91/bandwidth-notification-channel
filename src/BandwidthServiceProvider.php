@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class BandwidthServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -22,7 +22,7 @@ class BandwidthServiceProvider extends ServiceProvider
             });
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/bandwidth.php', 'bandwidth');
     }

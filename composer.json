@@ -6,6 +6,7 @@
     "notification",
     "bandwidth",
     "twilio",
+    "vonage",
     "sms",
     "mms"
   ],

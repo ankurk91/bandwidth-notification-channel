@@ -164,7 +164,7 @@ class BandwidthNotificationFailed implements ShouldQueue
         /** @var User $user */
         $user = $event->notifiable;
         
-        // Do something
+        // todo Do something with $user
     }
 }
 ```
