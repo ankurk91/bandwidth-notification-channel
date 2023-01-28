@@ -1,5 +1,9 @@
 # Changelog
 
+## [6.3.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/6.2.0..6.3.0)
+
+* Add support for Laravel 10
+
 ## [6.2.0](https://github.com/ankurk91/bandwidth-notification-channel/compare/6.1.0..6.2.0)
 
 * Drop support for Laravel v8

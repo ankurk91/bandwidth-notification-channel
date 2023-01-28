@@ -72,7 +72,7 @@ class BandwidthChannel
 
     protected function getPostUrl(): string
     {
-        return self::API_BASE_URL . "users/{$this->config->getAccountId()}/messages";
+        return static::API_BASE_URL . "users/{$this->config->getAccountId()}/messages";
     }
 
     protected function getMessage(Notification $notification, $notifiable): BandwidthMessage

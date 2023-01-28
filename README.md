@@ -20,7 +20,7 @@ composer require "ankurk91/bandwidth-notification-channel"
 ## Setting up your Bandwidth account
 
 * Grab your account credentials from [Bandwidth](https://dev.bandwidth.com/docs/account/credentials)
-* Add the account credentials in your `.env` file:
+* Add the account credentials in your `.env` and `.env.example` file:
 
 ```dotenv
 BANDWIDTH_ACCOUNT_ID=
@@ -94,7 +94,7 @@ class User extends Authenticatable
 
 ### Methods available on `BandwidthMessage` class
 
-* `content()` - Accepts a string value for the notification body.
+* `content()` - Accepts a string value for the notification body. (required)
 * `from()` - Accepts a phone number to use as the notification sender.
 * `media()` - Accepts a URL or array of URLs to be used as MMS.
 * `httpBody()` - Accepts an `array` to send along with notification http payload.
@@ -167,6 +167,19 @@ class BandwidthNotificationFailed implements ShouldQueue
         // todo Do something with $user
     }
 }
+```
+
+## On-demand notification
+
+You can also use Laravel's [on-demand](https://laravel.com/docs/9.x/notifications#on-demand-notifications) notifications
+to send push notification to number.
+
+```php
+use Illuminate\Support\Facades\Notification;
+use App\Notification\ExampleSMSNotification;
+
+Notification::route('Bandwidth', '+1234567890')   
+    ->notify(new ExampleSMSNotification());
 ```
 
 ### Notes (Taken from API docs)

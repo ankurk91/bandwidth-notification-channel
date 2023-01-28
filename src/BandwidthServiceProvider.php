@@ -17,9 +17,7 @@ class BandwidthServiceProvider extends ServiceProvider
 
         $this->app->when(BandwidthConfig::class)
             ->needs('$config')
-            ->give(function () {
-                return $this->app['config']->get('bandwidth');
-            });
+            ->give(fn() => $this->app['config']->get('bandwidth'));
     }
 
     public function register(): void
