@@ -118,7 +118,7 @@ BandwidthMessage::create()
 ### Events
 
 * The package utilises Laravel's inbuilt
-  notification [events](https://laravel.com/docs/9.x/notifications#notification-events)
+  notification [events](https://laravel.com/docs/10.x/notifications#notification-events)
 * You can listen to these events in your project's `EventServiceProvider` like:
 
 ```php
@@ -171,7 +171,7 @@ class BandwidthNotificationFailed implements ShouldQueue
 
 ## On-demand notification
 
-You can also use Laravel's [on-demand](https://laravel.com/docs/9.x/notifications#on-demand-notifications) notifications
+You can also use Laravel's [on-demand](https://laravel.com/docs/10.x/notifications#on-demand-notifications) notifications
 to send push notification to number.
 
 ```php
